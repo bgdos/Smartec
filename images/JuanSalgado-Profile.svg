@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="801.03015"
+   height="879.17413"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="JuanSalgado-Profile.svg"
+   inkscape:export-filename="D:\Juans Docs\hOMEWORK\UTT\JuanSalgado-ProfileSmall.png"
+   inkscape:export-xdpi="11.24"
+   inkscape:export-ydpi="11.24">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB"
+       id="filter3016">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result91"
+         id="feGaussianBlur3018" />
+      <feComposite
+         in="SourceGraphic"
+         operator="over"
+         in2="result91"
+         id="feComposite3020" />
+    </filter>
+    <filter
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB"
+       id="filter3016-1">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result91"
+         id="feGaussianBlur3018-7" />
+      <feComposite
+         in="SourceGraphic"
+         operator="over"
+         in2="result91"
+         id="feComposite3020-4" />
+    </filter>
+    <filter
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB"
+       id="filter3011">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result91"
+         id="feGaussianBlur3013" />
+      <feComposite
+         in="SourceGraphic"
+         operator="over"
+         in2="result91"
+         id="feComposite3015" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.175"
+     inkscape:cx="451.48334"
+     inkscape:cy="179.33606"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer4"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showborder="false" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Background"
+     transform="translate(-4.1299764e-6,-1.1326701e-6)" />
+  <g
+     inkscape:label="Shield"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline"
+     transform="translate(48.922463,34.731615)"
+     sodipodi:insensitive="true">
+    <path
+       style="fill:#008080;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;filter:url(#filter3016)"
+       inkscape:transform-center-x="-0.54502483"
+       inkscape:transform-center-y="23.861497"
+       d="M 111.35139,39.886975 349.68067,59.459521 586.51446,39.044401 666.14926,610.69097 350.22951,770.66648 34.208997,616.05428 z"
+       id="path2999"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       transform="matrix(1.0465581,0,0,1,-14.890198,0)" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="overlay"
+     style="display:inline"
+     transform="translate(48.922463,34.731615)"
+     sodipodi:insensitive="true">
+    <path
+       style="fill:#00c1c1;fill-opacity:0.35638296;fill-rule:evenodd;stroke:#48e5e5;stroke-width:0.90959764;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0;display:inline"
+       inkscape:transform-center-x="-0.48109457"
+       inkscape:transform-center-y="21.370628"
+       d="M 358.3357,84.175637 571.70104,69.42102 645.26782,581.92087 355.54181,724.67016 356.3377,475.14188 z"
+       id="path2999-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Text"
+     transform="translate(48.922463,34.731615)"
+     sodipodi:insensitive="true">
+    <text
+       xml:space="preserve"
+       style="font-size:573.78393555px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:0.73404254;stroke:none;font-family:Narkisim;-inkscape-font-specification:Narkisim"
+       x="155.83461"
+       y="525.64594"
+       id="text3916"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0211525,0.97928568)"><tspan
+         sodipodi:role="line"
+         id="tspan3918"
+         x="155.83461"
+         y="525.64594">J</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:584.31866455px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:0.72872338;stroke:none;font-family:Narkisim;-inkscape-font-specification:Narkisim"
+       x="404.51944"
+       y="512.70984"
+       id="text3916-2"
+       sodipodi:linespacing="125%"
+       transform="scale(0.86298443,1.1587695)"><tspan
+         sodipodi:role="line"
+         id="tspan3918-4"
+         x="404.51944"
+         y="512.70984">S</tspan></text>
+  </g>
+</svg>
