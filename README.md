@@ -1,2 +1,0 @@
-# Smartec
-Smartec Dashboard
