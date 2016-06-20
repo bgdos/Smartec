@@ -26,7 +26,7 @@ h1>span{color: #51acb8}
 .status{width: 20%; height: 60%; margin-top: 80px;}
 .today{height: 5%;width: 100%; background: none; margin: 0 0 0% 2%; text-align: center}
 .display{height: 28%;width: 100%; background: none; margin: 5% 0 0% 1%;}
-.graph{width: 80%; height: 60%; margin-top: 80px; margin-bottom: 0px; display: block}
+.graph{width: 100%; height: 60%; margin-top: 80px; margin-bottom: 0px; display: block}
 .graph .buttons{ position: absolute; margin-left: 20px;margin-top: 20px !important;}
 .graph label{margin-left: 15px;}
 .graph a{margin-left: 10px;padding: 3px 10px 3px 10px;}
