@@ -27,7 +27,7 @@ function getElement(e)//receive element name or css selector (#id, .class, p, et
     {
         console.log(err.message);
     }
-    
+
     return element;
 }
 /** array maximum **/
@@ -50,15 +50,15 @@ function arrayAverage(array)
 }
 /** modal window**/
 var dg = true;
-function dialogBox(text) { 
+function dialogBox(text) {
     var dialog;
     if (dg) { dialog = document.createElement('dialog'); document.body.appendChild(dialog); dg = false;}
     else { dialog = getElement('dialog');}
     dialog.innerHTML = text;
     dialog.showModal();
-    //document.body.removeChild(dialog); 
-} 
-/** generate a random number **/ 
+    //document.body.removeChild(dialog);
+}
+/** generate a random number **/
 function getRandomColor() {//refference http://stackoverflow.com/a/1484514/4225925
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
@@ -73,23 +73,23 @@ var pop = true;
 function popInfo(header, message, timeout)
 {
     var popup;
-    if (pop) { 
-        popup = document.createElement('div'); 
+    if (pop) {
+        popup = document.createElement('div');
         popup.className = 'popup';
-        popup.innerHTML = 
+        popup.innerHTML =
         '<div class="info">' +
             '<a class="close" onclick="closePopup()"></a>' +
             '<div class="popup-header">' +
                 '<h1 id="popheader">' + header + '<span id="head-mess"></span></h1>' +
             '</div>' +
-            '<div id="pop-message">' + 
+            '<div id="pop-message">' +
                 message +
             '</div>' +
          '</div>';
         document.body.appendChild(popup); pop = false;
     }
-    else 
-    { 
+    else
+    {
         getElement('popheader').innerHTML = header;
         getElement('pop-message').innerHTML = message;
     }
@@ -99,7 +99,7 @@ function popInfo(header, message, timeout)
 }
 // open the window
 function openPopup(){
-    getElement('.popup').style.display = 'inline'; 
+    getElement('.popup').style.display = 'inline';
     var pi = getElement('.info');
     var wh = document.documentElement.clientHeight;
     var ph = pi.clientHeight;
@@ -112,7 +112,7 @@ function openPopup(){
     p = (50 - p) + "%"
     pi.style.left = p;
     return false;
-	
+
 }
 //close the window
 function closePopup(){
@@ -150,7 +150,7 @@ function startTime(e, t)// recive the element where the clock is going to show /
 /** date **/
 var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];//to get the day of the week
 // create a date object
-function getDate(){ 
+function getDate(){
     var d = new Date();
     var month = d.getMonth()+1;
     var day = d.getDate();

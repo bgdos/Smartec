@@ -2,7 +2,7 @@
 jsCharts for JS Software
 The MIT License (MIT)
 
-Copyright (c) ${11/26/2015} ${Juan Salgado}
+Copyright (c) ${06/20/2016} ${Juan Salgado}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -185,7 +185,7 @@ Chart.prototype.linear = function()
     }
     var startX = 70; // graph start x position
     var startY = 300; // graph start y position (height)
-    var lineXLenght = 600;
+    var lineXLenght = 900;
     var dataLineYInterval = Math.round((lineXLenght - startX) / (gridX-1));
     //crear grid
     var line = drawLine(startX, 50, startX,startY, mainColor ); svgLinear.appendChild(line);
@@ -450,7 +450,7 @@ function getValuesIntervals(array)
 /** find the multiplicator of the array **/
 function multiplicator(arrayMax)//found a multiplicator to determine the maximum and minimum of a chart
 {
-    var multi = .00001;
+    var multi = 0.00001;
     while (arrayMax > multi)
     {
         multi = multi * 10;

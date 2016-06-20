@@ -1,4 +1,4 @@
-var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, averval = 0, date, valueY, valueX, timer;
+var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, averval = 0, maxval2 = 0, minval2 = 0, averval2 = 0, date, valueY, valueX, timer, valueY2;
 
 
 
@@ -14,7 +14,7 @@ function start()
 function makeGraphics()
 {
     var dataLenght = 10;
-    var max= 50, labelY = "Temperature", labelX= "Time";
+    var max= 40;
     if (dataY.length != dataLenght)
     {
         llenarDatos(contador);//generate data (array < 7)
@@ -22,25 +22,29 @@ function makeGraphics()
     else
     {
         actualizarDatos(dataLenght);//actualizar datos
+        actualizarDatos2(dataLenght);
     }
     /* (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)*/
-    var temperature = new Chart("graph", dataY, dataX, false, "", "Temperature", "Time", "", "rgba(47, 116, 152, 0.69)")// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
+    var temperature = new Chart("graph", dataY, dataX, false, "", "Temperature", "Time", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
     temperature.linear();
-    var humidity = new Chart("graph2", dataY, dataX, false, "", "Humidity", "Time", "", 'rgba(191, 51, 51, 0.76)')// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
+    var humidity = new Chart("graph2", dataY2, dataX, false, "", "Humidity", "Time", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
     humidity.linear();
-    // lineal("graph", dataY, dataX, max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
-    // lineal("graph2", dataY, dataX, max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
 }
 function llenarDatos()
 {
 
-    valueY = getRandomNumber(30, 50); //generate random number
+    valueY = getRandomNumber(28, 35); //generate random number
+    valueY2 = getRandomNumber(40, 60); //generate random number
     dataY.push(valueY);//add the value y to the array
+    dataY2.push(valueY2)
     valueX = getTime();//get the time for the x label (timeline)
     dataX.push(valueX);//add the value y to the array for timeline
     maxval = arrayMaximum(dataY);//found the maximum value in the array
     minval = arrayMinimum(dataY);//found the minimum value in the array
     averval = arrayAverage(dataY);//get the average value from the array
+    maxval2 = arrayMaximum(dataY2);//found the maximum value in the array
+    minval2 = arrayMinimum(dataY2);//found the minimum value in the array
+    averval2 = arrayAverage(dataY2);//get the average value from the array
     display(); //display on the dashboard
 }
 function actualizarDatos(number)
@@ -57,7 +61,7 @@ function actualizarDatos(number)
         }
         else
         {
-            dataY[i] = valueY = getRandomNumber(30, 50);
+            dataY[i] = valueY = getRandomNumber(28, 35);
             dataX[i] = valueX = getTime();
         }
     }
@@ -66,11 +70,37 @@ function actualizarDatos(number)
     averval = arrayAverage(dataY);
     display(); //display on the dashboard
 }
+function actualizarDatos2(number)
+{
+    var date = new Date();
+    var temp = dataY2;
+    var temp2 = dataX;
+    for (var i = 0; i < dataY2.length; i++)
+    {
+        if (i != number-1)
+        {
+            dataY2[i] = temp[i+1];
+            dataX[i] = temp2[i+1];
+        }
+        else
+        {
+            dataY2[i] = valueY2 = getRandomNumber(40, 60);
+            dataX[i] = valueX = getTime();
+        }
+    }
+    maxval2 = arrayMaximum(dataY2);
+    minval2 = arrayMinimum(dataY2);
+    averval2 = arrayAverage(dataY2);
+    display(); //display on the dashboard
+}
 function display()
 {
     document.getElementById("max-val").innerHTML = maxval + "&deg";//display the maximum value in the dashboard
     document.getElementById("min-val").innerHTML = minval + "&deg";//display the minimum value in the dashboard
     document.getElementById("aver-val").innerHTML = averval + "&deg";//diplay the average value in the dashboard
+    document.getElementById("max-val2").innerHTML = maxval2 + "%";//display the maximum value in the dashboard
+    document.getElementById("min-val2").innerHTML = minval2 + "%";//display the minimum value in the dashboard
+    document.getElementById("aver-val2").innerHTML = averval2 + "%";//diplay the average value in the dashboard
     /** display the data in the activity text area **/
     //var text = document.getElementById('activity').innerHTML;
     var tb =  getElement('tbody');
