@@ -1,84 +1,410 @@
-//mostrar gráficas
-//Grafica Lineal
-var colorLineas = '#919191';
-var colorTexto = '#919191';
-var colorRelleno;
-function lineal(element, datosY, datosX, maxval, labelY, labelX, gridX, colorRelleno, id)
+/*
+jsCharts for JS Software
+The MIT License (MIT)
+
+Copyright (c) ${11/26/2015} ${Juan Salgado}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORTOR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
+
+/**     Files needed:   js.js           **/
+
+
+/** Variables **/
+var varColors = ['#1787ce',
+     '#db6262',
+     '#b64ed9',
+     "#519f4a",
+     'rgb(111, 103, 103)',
+     '#256462',
+     "#5e91c6",
+     "#4661EE",
+     "#EC5657",
+     "#1BCDD1",
+     "#8FAABB",
+     "#B08BEB",
+     "#3EA0DD",
+     "#F5A52A",
+     "#23BFAA",
+     "#FAA586",
+     "#EB8CC6"];
+var columnColor = "#5e91c6";
+var columnToday = "#519f4a";
+var mainColor = "#1f7dd2";
+var lineColor = '#d3d3d3';
+var textColor = '#1f7dd2';
+var fillColor = 'rgba(81, 184, 121, 0.97)';
+var max;
+var min;
+var Zero;
+//create object
+var Chart = function (element, data, DataNames, useZero, colors, labelX, labelY, average, fillColor)
 {
-    //var maxval = Math.max.apply(Math, datos);
-    var svgLinea = document.getElementById(element), dibujos = [];
-    while (svgLinea.firstChild) {
-        svgLinea.removeChild(svgLinea.firstChild);
+    Zero = useZero;//global variable
+    this.element = element;
+    this.data = data;
+    this.titlesV = getValuesIntervals(data);
+    this.titlesN = DataNames;
+    this.colors = (colors != undefined)? colors : varColors;
+    this.labelX = labelX;
+    this.labelY = labelY;
+    this.average = average;
+    this.fillColor = fillColor;
+}
+/** bar chart **/
+Chart.prototype.bar = function()
+{
+    //pass the chart values to local values;
+    var element = this.element, data = this.data, titlesY = this.titlesN, titlesX = this.titlesV, colors = this.colors, gridX = this.titlesN.length, labelX = this.labelX, labelY = this.labelY, useZero = this.useZero, fillColor = this.fillColor;
+    var svg = getElement(element);
+    var svgBar = createSVG('g');
+    //var maxval = Math.max.apply(Math, data), series = maxval / 5;
+    while (svg.firstChild) {
+        svg.removeChild(svg.firstChild);
     }
-    var startX = 60; // graph start x position
+    var startX = 50;
+    var xLenght = 600;
+    var interval = (xLenght - startX) / titlesX.length;//for the length of the bar
+    var gridXInterval = 250 / data.length;//for the height of the bar
+    var line = drawLine(startX, 50, startX, 300, "#1f7dd2" ); svgBar.appendChild(line);
+    line = drawLine(startX, 300, xLenght, 300, "#1f7dd2" ); svgBar.appendChild(line);
+    var text = drawText(min, startX, 320, "middle", 12, "#1f7dd2"); svgBar.appendChild(text);
+    text = drawText(min, startX, 45, "middle", 12, "#1f7dd2"); svgBar.appendChild(text);
+
+    //create grid
+    var x = startX;
+    var y = startX + (interval/2);
+    for (var i = 0; i < titlesX.length; i++)//lines Y
+	{
+        line = drawLine(y, startX, y,305, "#d3d3d3" ); svgBar.appendChild(line);
+        y += interval / 2;
+        line = drawLine(y, startX, y,305, "#d3d3d3" ); svgBar.appendChild(line);
+        y += interval / 2;
+	}
+    var x = startX;
+    for (var i = 0; i < data.length; i++)//lines X
+	{
+		line = drawLine(startX, x, xLenght, x, "#d3d3d3" ); svgBar.appendChild(line);
+        text = drawText(titlesY[i], 10, x + gridXInterval / 2, "right", 12, "#1f7dd2"); svgBar.appendChild(text);
+        x += gridXInterval;
+	}
+    //create text
+    var y = startX + interval;
+    for (var i = 0; i < titlesX.length; i++)
+	{
+        text = drawText(titlesX[i], y, 320, "middle", 12, "#1f7dd2"); svgBar.appendChild(text);
+        text = drawText(titlesX[i], y, 45, "middle", 12, "#1f7dd2"); svgBar.appendChild(text);
+        y += interval;
+	}
+    x = startX;
+    y = startX - 20;
+    var size = gridXInterval / 1.25;
+    for (var i = 0; i < data.length; i++)
+	{
+        var recValue = ((data[i]-min) / ((max-min) / titlesX.length) * interval);
+        var rectangle = drawRectangle(startX, x + (gridXInterval * .1), recValue, size , "#5e91c6", colors[i], 0, 0); svgBar.appendChild(rectangle);
+        text = drawText(data[i], y + recValue , x + gridXInterval / 1.75, "middle", 12, "#CCCCCC"); svgBar.appendChild(text); // testo dentro de la barra
+        x += gridXInterval;
+	}
+    svg.appendChild(svgBar);
+}
+/** columns chart **/
+Chart.prototype.columns = function()
+{
+    //pass the chart values to local values;
+    var element = this.element, data = this.data, titlesY = this.titlesV, titlesX = this.titlesN, colors = this.colors, gridX = this.titlesN.length, useZero = this.useZero, fillColor = this.fillColor;
+    titlesY.reverse();
+    var svg = getElement(element);
+    var svgBar = createSVG('g');
+    while (svg.firstChild) {
+        svg.removeChild(svg.firstChild);
+    }
+    var startX = 70;
+    var xLenght = 600;
+    var gridYInterval = (xLenght - startX) / data.length;//for the height of the bar
+    //Drawing lines
+    var line = drawLine(startX, 50, startX,300, mainColor ); svgBar.appendChild(line);
+    line = drawLine(startX, 300, xLenght,300, mainColor ); svgBar.appendChild(line);
+    var text = drawText(min, 25, 300, "middle", 12, textColor); svgBar.appendChild(text);
+    var y = 50;
+    var x = startX + gridYInterval;
+    var interval = 250 / titlesY.length;
+    //titles x
+     for (var i = 0; i < data.length; i++)
+	{
+        text = drawText(titlesX[i], x - (gridYInterval / 2), 320, "middle", 12, textColor); svgBar.appendChild(text);//use "titlesX[i].substring(0, 3)" to trim titles
+        text = drawText(titlesX[i], x - (gridYInterval / 2), 45, "middle", 12, textColor); svgBar.appendChild(text);
+        line = drawLine(x, 50, x,305, "#d3d3d3" ); svgBar.appendChild(line);
+        x += gridYInterval;
+	}
+    //title y
+    y = 50;
+    x = 165;
+    for (var i = 0; i < titlesY.length; i++)
+	{
+		line = drawLine(startX, y, xLenght , y, "#d3d3d3" ); svgBar.appendChild(line);
+        text = drawText(titlesY[i], 10, y, "right", 12, textColor); svgBar.appendChild(text);
+        y += interval;
+	}
+    x = startX + (gridYInterval * .1);
+    y = 250;
+    var size = gridYInterval / 1.2;
+    for (var i = 0; i < data.length; i++)
+	{
+        var color = columnColor;
+        var colValue = 250-(((data[i]- min) / ((max - min) /titlesY.length)) * interval);
+        var rectangle = drawRectangle(x, 50 + colValue , size, y-colValue, mainColor, colors[i], 0, 0); svgBar.appendChild(rectangle);
+        text = drawText(data[i], x + (gridYInterval / 2.5) , 70 + colValue, "middle", 12, "#CCCCCC"); svgBar.appendChild(text); // testo dentro de la barra
+        x += gridYInterval;
+	}
+    svg.appendChild(svgBar);
+}
+//linear chart
+Chart.prototype.linear = function()
+{
+    //pass the chart values to local values;
+    var element = this.element, data = this.data, titlesY = this.titlesV, titlesX = this.titlesN, colors = this.colors, gridX = this.data.length, labelX = this.labelX, labelY = this.labelY, useZero = this.useZero, fillColor = this.fillColor;
+    var svgLinear = createSVG('g'), drawings = [];
+    var svg = getElement(element);
+    while (svg.firstChild) {
+        svg.removeChild(svg.firstChild);
+    }
+    var startX = 70; // graph start x position
     var startY = 300; // graph start y position (height)
-    var lineXLenght = 850;
+    var lineXLenght = 600;
     var dataLineYInterval = Math.round((lineXLenght - startX) / (gridX-1));
     //crear grid
-    var linea = dibujarLinea(startX, 50, startX,startY, colorLineas ); svgLinea.appendChild(linea);
-    linea = dibujarLinea(startX, startY, lineXLenght ,startY, colorLineas ); svgLinea.appendChild(linea);
-    var texto = dibujarTexto("0°", startX - 25, startY, "middle", 12, colorLineas); svgLinea.appendChild(texto);
-    texto = dibujarTexto(labelY, startX - 50, 150, "middle", 12, colorTexto); texto.style.writingMode = "tb";
-    texto.style.glyphOrientationVertical = 0;svgLinea.appendChild(texto);
-    texto = dibujarTexto(labelX, 400, 360, "middle", 12, colorTexto);svgLinea.appendChild(texto);
-    //Dibujar
+    var line = drawLine(startX, 50, startX,startY, mainColor ); svgLinear.appendChild(line);
+    line = drawLine(startX, startY, lineXLenght ,startY, mainColor ); svgLinear.appendChild(line);
+    var text = drawText("0", startX -40, startY, "middle", 12, textColor); svgLinear.appendChild(text);
+    if (labelY != '' & labelY != undefined)
+    text = drawText(labelY, startX - 60, 150, "middle", 12, textColor); text.style.writingMode = "tb";
+    text.style.glyphOrientationVertical = 0;svgLinear.appendChild(text);
+    if (labelX != '' & labelX != undefined)
+        text = drawText(labelX, 300, 350, "middle", 12, textColor);svgLinear.appendChild(text);
+    //drawing
     var x = 50;
-    //lineas x
+    //lines x
     for (var i = 0; i < 5; i++)
 	{
-		linea = dibujarLinea(startX, x, lineXLenght,x, "#d3d3d3" ); svgLinea.appendChild(linea);
-        texto = dibujarTexto(Math.round(maxval - (i * (maxval/5))) + "°", startX - 35, x+5, "right", 12, colorTexto); svgLinea.appendChild(texto);
+		line = drawLine(startX, x, lineXLenght,x, "#d3d3d3" ); svgLinear.appendChild(line);
+        text = drawText(Math.round(max - (i * (max/5))), startX - 45, x+5, "right", 12, textColor); svgLinear.appendChild(text);
         x += 50;
 	}
     var y = startX + dataLineYInterval;
-    //lineas y
+    //lines y
     for (var i = 0; i < gridX-1; i++)
 	{
-        linea = dibujarLinea(y, 50, y, startY + 5, "#d3d3d3" ); svgLinea.appendChild(linea);
+        line = drawLine(y, 50, y, startY + 5, "#d3d3d3" ); svgLinear.appendChild(line);
         y += dataLineYInterval;
 	}
     y = startX;
-    //datos y
+    //titles y
     for (var i = 0; i < gridX; i++)
 	{
-        if (datosY[i] != null)//solo dibuja el texto si contiene datos
-            texto = dibujarTexto(datosX[i], y, 320, "middle", 12, colorTexto); svgLinea.appendChild(texto);
+        if (data[i] != null)
+            text = drawText(titlesX[i], y, 320, "middle", 12, textColor); svgLinear.appendChild(text);
         y += dataLineYInterval;
 	}
-    //crear lineas de datos y circulos
+    //create data for the chartTooltips
     x = startX;
     y = startY;
     var x1 = 0, y1 = 0, x2= 0, y2=0;
     var fill = "", circles = [];
-    for (var i = 0; i < datosY.length; i++)//genera arrglo de datos
+    for (var i = 0; i < data.length; i++)
 	{
         x1 = x + (i * dataLineYInterval);
-        y1 = y - ((datosY[i] / maxval)*250);
+        y1 = y - ((data[i] / max)*250);
         fill += " L"+x1+","+y1;
         circles.push({x1, y1});
 	}
-    var graph = crearSVG("path", {d: "M" + startX +",300 " + fill + " L"+ circles[datosY.length-1].x1 + ",300", fill: colorRelleno, stroke:"#5e91c6", strokewidth:"2px"});
-    svgLinea.appendChild(graph);
-    for (var i = 0; i < datosY.length; i++)
+    var graph = createSVG("path", {d: "M" + startX +",300 " + fill + " L"+ circles[data.length-1].x1 + ",300", fill: fillColor, stroke:"#5e91c6", strokewidth:"2px"});
+    svgLinear.appendChild(graph);
+    for (var i = 0; i < data.length; i++)
     {
-        var circulo = dibujarCirculo(circles[i].x1, circles[i].y1, "#ccc", "#618fb9"); svgLinea.appendChild(circulo);
-        texto = dibujarTexto(labelX + " : " + datosX[i] + ", " + labelY + " : " + datosY[i] + "", circles[i].x1, circles[i].y1-15, "right", 8, colorLineas);
-        var rectangulo = dibujarRectangulo(texto.getAttribute("x")-10, texto.getAttribute("y")-18, 170, 25, colorLineas, "rgba(247, 247, 247, 0.77)", 0, 0);
-        texto.style.display = "none";
-        rectangulo.style.display = "none";
-        svgLinea.appendChild(rectangulo);
-        svgLinea.appendChild(texto);
-        dibujos.push({circulo, rectangulo, texto});
+        var circle = drawCircle(circles[i].x1, circles[i].y1, "#d3d3d3", "#35a8b2"); svgLinear.appendChild(circle);
+        text = drawText(labelX + " : " + titlesX[i] + ", " + labelY + " : " + data[i], circles[i].x1, circles[i].y1-15, "right", 8, textColor);
+        var rectangle = drawRectangle(text.getAttribute("x")-10, text.getAttribute("y")-18, 170, 25, lineColor, "rgba(247, 247, 247, 0.77)", 0, 0);
+        text.style.display = "none";
+        rectangle.style.display = "none";
+        svgLinear.appendChild(rectangle);
+        svgLinear.appendChild(text);
+        drawings.push({circle, rectangle, text});
 	}
-    //desplegar las etiquetas al pasar el raton
-    for (var i = 0; i < dibujos.length; i++)
+    //display chartTooltip on mouse over the circles
+    for (var i = 0; i < drawings.length; i++)
     {
-        svgLinea.appendChild(dibujos[i].rectangulo);
-        svgLinea.appendChild(dibujos[i].texto);
-        tooltip(dibujos[i].circulo, dibujos[i].rectangulo, dibujos[i].texto);
+        svgLinear.appendChild(drawings[i].rectangle);
+        svgLinear.appendChild(drawings[i].text);
+        chartTooltip(drawings[i].circle, drawings[i].rectangle, drawings[i].text);
     }
+    svg.appendChild(svgLinear);
 }
-function tooltip(trigger, display, display2)
+/** pie chart**/
+Chart.prototype.pie = function()
+{
+    //pass the chart values to local values;
+    var element = this.element, data = this.data, titlesY = this.titlesN, colors = this.colors, useZero = this.useZero, fillColor = this.fillColor;
+    var svgPie = createSVG('g'), svg = getElement(element), drawings = [];
+    while (svg.firstChild) {
+        svg.removeChild(svg.firstChild);
+    }
+    var total = data.reduce(function (accu, that) { return that + accu; }, 0);
+    var angleSelector = data.map(function (v) { return 360 * v / total; });
+
+    x= 450; y=35;
+
+    for (var i = 0; i < data.length; i++)
+	{
+        text = drawText(titlesY[i]+ ": " + ((100/total)*data[i]).toFixed(2)+"%",x, y , "right", 12, textColor); svgPie.appendChild(text);
+        var rectangle = drawRectangle(x-15, y-10, 10, 10, "#5e91c6", colors[i], 0, 0); svgPie.appendChild(rectangle);
+        y += 30
+
+	}
+    var startAngle = 0;
+    var endAngle = 0;/** drawing arcs **/
+    for (var i=0; i<angleSelector.length; i++){
+        startAngle = endAngle;
+        endAngle = startAngle + angleSelector[i];
+        var x = 200;
+        var y = 180;
+        var r = 160;
+
+        var x1,x2,y1,y2 ;
+
+        x1 = parseInt(Math.round(x + r * Math.cos(Math.PI*startAngle/180)));
+        y1 = parseInt(Math.round(y + r * Math.sin(Math.PI*startAngle/180)));
+
+        x2 = parseInt(Math.round(x + r*Math.cos(Math.PI*endAngle/180)));
+        y2 = parseInt(Math.round(y + r*Math.sin(Math.PI*endAngle/180)));
+
+
+
+        var d = "M"+x +","+y+"  L" + x1 + "," + y1 + "  A"+r+","+r+" 0 " +
+                ((endAngle-startAngle > 180) ? 1 : 0) + ",1 " + x2 + "," + y2 + " z";
+        //alert(d); // muestra las coordenadas
+        var c = parseInt(i / angleSelector.length * 360);
+        var arcos = createSVG("path", {d: d, fill: colors[i], stroke:lineColor, strokewidth:"2px"});
+        svgPie.appendChild(arcos);
+        //dibujar tiquetas
+        var text = drawText(titlesY[i] + " : " + ((100/total)*data[i]).toFixed(2)+"%", (x1+x2) /2, ((y1+y2)/2) ,"middle", "15", "#1f7dd2");
+        var rectangle = drawRectangle(text.getAttribute("x")-100, text.getAttribute("y")-18, 200, 25, "#0e96eb", "#d3d3d3", 5, 5);
+        text.style.display = "none";
+        text.style.zIndex = "5";
+        rectangle.style.display = "none";
+        rectangle.style.zIndex = "5";
+        drawings.push({arcos, rectangle, text});
+    }
+    //add the tooltip
+    for (var i = 0; i < drawings.length; i++)
+    {
+        svgPie.appendChild(drawings[i].rectangle);
+        svgPie.appendChild(drawings[i].text);
+        chartTooltip(drawings[i].arcos, drawings[i].rectangle, drawings[i].text);
+    }
+    svg.appendChild(svgPie);
+}
+//points chart
+Chart.prototype.points = function(average)//function points(element, dataY, dataX, maxval, labelY, labelX, gridX, average)
+{
+    //pass the chart values to local values;
+    var element = this.element, data = this.data, titlesY = this.titlesV, titlesX = this.titlesN, colors = this.colors, gridX = this.data.length, labelX = this.labelX, labelY = this.labelY, useZero = this.useZero, fillColor = this.fillColor;
+    if (average == undefined & this.average != undefined)
+        average = this.average;
+    else
+        this.average = average;
+    var svgLinear = createSVG('g'), svg = document.getElementById(element), drawings = [];
+    while (svg.firstChild) {
+        svg.removeChild(svg.firstChild);
+    }
+    var startX = 70; // graph start x position
+    var startY = 300; // graph start y position (height)
+    var lineXLenght = 600;
+    var dataLineYInterval = Math.round((lineXLenght - startX) / (gridX-1));
+    //crear grid
+    var line = drawLine(startX, 50, startX,startY, mainColor ); svgLinear.appendChild(line);
+    line = drawLine(startX, startY, lineXLenght ,startY, mainColor ); svgLinear.appendChild(line);
+    var text = drawText("0", startX - 40, startY, "middle", 12, textColor); svgLinear.appendChild(text);
+    if (labelY != '' & labelY != undefined)
+    text = drawText(labelY, startX - 50, 150, "middle", 12, textColor); text.style.writingMode = "tb";
+    text.style.glyphOrientationVertical = 0;svgLinear.appendChild(text);
+    if (labelX != '' & labelX != undefined)
+        text = drawText(labelX, 300, 350, "middle", 12, textColor);svgLinear.appendChild(text);
+    //drawing
+    var x = 50;
+    //lines x
+    for (var i = 0; i < 5; i++)
+	{
+		line = drawLine(startX, x, lineXLenght,x, "#d3d3d3" ); svgLinear.appendChild(line);
+        text = drawText(Math.round(max - (i * (max/5))), startX - 45, x+5, "right", 12, textColor); svgLinear.appendChild(text);
+        x += 50;
+	}
+    var y = startX + dataLineYInterval;
+    //lines y
+    for (var i = 0; i < gridX-1; i++)
+	{
+        line = drawLine(y, 50, y, startY + 5, "#d3d3d3" ); svgLinear.appendChild(line);
+        y += dataLineYInterval;
+	}
+    y = startX;
+    //titles y
+    for (var i = 0; i < gridX; i++)
+	{
+        if (data[i] != null)
+            text = drawText(titlesX[i], y, 320, "middle", 12, textColor); svgLinear.appendChild(text);
+        y += dataLineYInterval;
+	}
+    //create data for the chartTooltips
+    x = startX;
+    y = startY;
+    var x1 = 0, y1 = 0, x2= 0, y2=0;
+    var fill = "", circles = [];
+    for (var i = 0; i < data.length; i++)
+	{
+        x1 = x + (i * dataLineYInterval);
+        y1 = y - ((data[i] / max)*250);
+        fill += " L"+x1+","+y1;
+        circles.push({x1, y1});
+	}
+    var graph = createSVG("path", {d: "M" + startX +",300 " + fill + " L"+ circles[data.length-1].x1 + ",300", fill: fillColor, stroke:"#5e91c6", strokewidth:"2px"});
+    svgLinear.appendChild(graph);
+    for (var i = 0; i < data.length; i++)
+    {
+        var circle = drawCircle(circles[i].x1, circles[i].y1, "rgba(211, 211, 211, 0)", "rgba(53, 168, 178, 0)"); svgLinear.appendChild(circle);
+        text = drawText(labelX + " : " + titlesX[i] + ", " + labelY + " : " + data[i], circles[i].x1, circles[i].y1-15, "right", 8, textColor);
+        var rectangle = drawRectangle(text.getAttribute("x")-10, text.getAttribute("y")-18, 170, 25, lineColor, "rgba(247, 247, 247, 0.77)", 0, 0);
+        text.style.display = "none";
+        rectangle.style.display = "none";
+        svgLinear.appendChild(rectangle);
+        svgLinear.appendChild(text);
+        drawings.push({circle, rectangle, text});
+	}
+    //display chartTooltip on mouse over the circles
+    for (var i = 0; i < drawings.length; i++)
+    {
+        svgLinear.appendChild(drawings[i].rectangle);
+        svgLinear.appendChild(drawings[i].text);
+        chartTooltip(drawings[i].circle, drawings[i].rectangle, drawings[i].text);
+    }
+    if (average > 0) {line = drawLine(startX, startY - ((average / max)*250), lineXLenght, startY - ((average / max)*250), "#e80c0c" ); svgLinear.appendChild(line);}
+    svg.appendChild(svgLinear);
+}
+//create tooltip
+function chartTooltip(trigger, display, display2)
 {
     trigger.onmouseover = (function(){
             display.style.display = "inline";
@@ -89,98 +415,53 @@ function tooltip(trigger, display, display2)
             display2.style.display = "none";
         });
 }
-//dibujar el pie
-function crearSVG(grafico, atributos) { //Recibe el tipo de grafico que se requiere y los atributos para crearlo
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', grafico); // se crea la figura
-    for (var k in atributos)
-        if (atributos.hasOwnProperty(k)) svg.setAttribute(k, atributos[k]);
-    return svg;
-}
-//Dibujar Linea
-function dibujarLinea(x1, y1, x2, y2, color)
+/* get labels for charts (!pie) */
+function getValuesIntervals(array)
 {
-	//crear linea
-	var linea = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-	//punto inicial
-	linea.setAttribute('x1', x1); linea.setAttribute('y1', y1);
-	//punto final
-	linea.setAttribute('x2', x2); linea.setAttribute('y2', y2);
-	//estilo linea
-	linea.style.stroke = color; //color de linea
-	linea.style.strokeWidth = '1px'; //grosor de la linea
-	//regresar linea
-	return linea;
+    if (array.length > 0)
+    {
+        max = 0;
+        min = 0;
+        var arrayMax = arrayMaximum(array);//js.js file need to be included on your HTML page
+        var arrayMin = arrayMinimum(array);//js.js file need to be included on your HTML page
+        //multiplicator
+        var multi = multiplicator(arrayMax);
+        //get the maximum of the array
+        var rounded = Math.round(arrayMax / 10);
+        if (arrayMax < 1)
+            max = multi;
+        else if (arrayMax <= 100 & arrayMin >= 1)
+            max = (rounded > arrayMax / 10) ? rounded * 10 : (rounded + 1) * 10;
+        else while (max <= arrayMax)
+            max += (multi / 100);
+        //get the minimum of the array
+        if (arrayMin <= multi & arrayMin <= 100 || Zero)
+            min = 0;
+        else while (arrayMin > min + multi / 100)
+                    min += multi / 100;
+        var interval = (max - min) / 10;
+        //fill array with intervals values
+        var intervals = getIntervals(10, interval, min);//number of labels, interval, minimum value
+        return intervals;
+    }
+    else
+        alert('Error, array is empty.');
 }
-//Dibujar Rectángulo
-function dibujarRectangulo(x, y, alto, ancho, colorLinea, colorRelleno, rx, ry)
+/** find the multiplicator of the array **/
+function multiplicator(arrayMax)//found a multiplicator to determine the maximum and minimum of a chart
 {
-	//crear rectángulo
-	var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-	//punto inicial
-	rect.setAttribute('x', x); rect.setAttribute('y', y);
-    rect.setAttribute('rx', rx);rect.setAttribute('ry', ry);
-	//ancho y alto
-	rect.setAttribute('height', ancho); rect.setAttribute('width', alto);
-	//estilo rectangulo
-	rect.style.stroke = colorLinea; //color de linea
-	rect.style.strokeWidth = '1px'; //grosor de la linea
-	rect.style.fill = colorRelleno; //relleno
-	//regresar rectángulo
-	return rect;
+    var multi = .00001;
+    while (arrayMax > multi)
+    {
+        multi = multi * 10;
+    }
+    return multi;
 }
-//Dibujar Circulo
-function dibujarCirculo(cx, cy, stroke, fill)
+/** get the interval values **/
+function getIntervals(a, b, c)//number of intervals, difference between intervals, minimum value
 {
-	//crear circulo
-	var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-	//centro
-	c.setAttribute('cx', cx); c.setAttribute('cy', cy);
-	//radio
-	c.setAttribute('r', 5);
-	//estilo del circulo
-	c.style.stroke = stroke; //color de linea
-	c.style.strokeWidth = '2px'; //grosor de la linea
-	c.style.fill = fill; //color de relleno
-	//agregar circulo a svg
-	return c;
-}
-// Dibujar Texto
-function dibujarTexto(texto, x, y, ancla, tamano, color)
-{
-	//crear texto
-	var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-	//texto
-	t.innerHTML = texto;
-	//posición
-	t.setAttribute('x', x); t.setAttribute('y', y);
-	//alineacion
-	t.setAttribute('text-anchor', ancla);
-	//font
-	t.setAttribute('font-family', 'arial');
-	t.setAttribute('font-size', tamano + 'pt');
-	//color
-	t.style.fill = color;
-	//regresar texto
-	return t;
-}
-//Dibujar Poligono
-function dibujarPoligono()
-{
-	//crear poligono
-	var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-	//generar atributo de puntos
-	var puntos = [ [200,200], [300,200], [300,300], [400,300], [400,400], [200,400] ];
-	var puntosString = '';
-	for (var i = 0; i < puntos.length; i++)
-	{
-		puntosString += puntos[i][0] + ',' + puntos[i][1] + ' ';
-	}
-	puntosString += puntos[0][0] + ',' + puntos[0][1]; //regresar a punto original
-	p.setAttribute('points',puntos);
-	//estilo
-	p.style.stroke = '#822'; //color de linea
-	p.style.strokeWidth = '1px'; //grosor de la linea
-	p.style.fill = '#A55'; //color de relleno
-	//agregar poligono a svg
-	s.appendChild(p);
+    var array = []
+    for (var i = 1; i <= a; i++)
+        array.push(i * b + c);
+    return array;
 }

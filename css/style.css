@@ -10,7 +10,7 @@ body{height: 100vh; width: 100vw; margin: 0;}
 .col-1,.bottom{width: 100%}
 container{background: #d9d9d9;width: 100%;height: 100%;}
 .col-1, .sidebar, container, .graph, .status, .status-left, .status-right, header, header img, header h1, .bottom, .colx1, .colx2, .colx3, div, .status-left img{float: left;}
-container{display: block;}
+container, div{display: block;}
 /** SideBar**/
 .sidebar{position: fixed;z-index: 2;width: 20%; background: #181e21; display: none; height: 100vh}
 .menu{margin: 60px 0 0 10px}
@@ -26,7 +26,7 @@ h1>span{color: #51acb8}
 .status{width: 20%; height: 60%; margin-top: 80px;}
 .today{height: 5%;width: 100%; background: none; margin: 0 0 0% 2%; text-align: center}
 .display{height: 28%;width: 100%; background: none; margin: 5% 0 0% 1%;}
-.graph{width: 80%; height: 60%; margin-top: 80px; margin-bottom: 0px;}
+.graph{width: 80%; height: 60%; margin-top: 80px; margin-bottom: 0px; display: block}
 .graph .buttons{ position: absolute; margin-left: 20px;margin-top: 20px !important;}
 .graph label{margin-left: 15px;}
 .graph a{margin-left: 10px;padding: 3px 10px 3px 10px;}
@@ -53,6 +53,7 @@ h1>span{color: #51acb8}
 .header>div{width: 50%; height: 100%}
 .header p{margin: 10px;}
 .col-2{width: 50%;}
+.graph .col-2{height: 100%}
 label {float: left }
 /** switch **/
 .switch-bg{width: 60px; background: #d6d6d6; height: 10px; float: left; margin: 5px 5px 0 5px;border-radius: 30px; border: 2pt solid #b7b7b7}

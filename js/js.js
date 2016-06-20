@@ -169,14 +169,13 @@ function setDate(e)
     getElement(e).innerHTML = formatedDate;
 }
 /** get local time HH/MM/SS **/
-function getTime(d)
+function getTime()
 {
-    var date, hour, minutes, seconds, time;
-    date = (d != undefined)? new Date(d) : new Date();
-    hour = (date.getHours() < 10) ? "0" + date.getHours() : date.getHours();
-    minutes = (date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes();
-    seconds = (date.getSeconds() < 10) ? "0" + date.getSeconds() : date.getSeconds();
-    time = hour + ":" + minutes + ":" + seconds;
+    date = new Date();
+    var hour = (date.getHours() < 10) ? "0" + date.getHours() : date.getHours();
+    var minutes = (date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes();
+    var seconds = (date.getSeconds() < 10) ? "0" + date.getSeconds() : date.getSeconds();
+    var time = hour + ":" + minutes + ":" + seconds;
     return time;
 }
 /** get a random number **/

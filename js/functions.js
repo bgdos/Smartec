@@ -4,7 +4,7 @@ var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, av
 
 function start()
 {
-    startTimer('',getElement('.buttons a'));
+    startTimer();
     //getWeekAverages();
     date = getDate();
     getElement('day').innerHTML = date.weekday;
@@ -23,8 +23,13 @@ function makeGraphics()
     {
         actualizarDatos(dataLenght);//actualizar datos
     }
-    lineal("graph", dataY, dataX, max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
-    lineal("graph2", dataY, dataX, max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
+    /* (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)*/
+    var temperature = new Chart("graph", dataY, dataX, false, "", "Temperature", "Time", "", "rgba(47, 116, 152, 0.69)")// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
+    temperature.linear();
+    var humidity = new Chart("graph2", dataY, dataX, false, "", "Humidity", "Time", "", 'rgba(191, 51, 51, 0.76)')// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
+    humidity.linear();
+    // lineal("graph", dataY, dataX, max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
+    // lineal("graph2", dataY, dataX, max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
 }
 function llenarDatos()
 {
@@ -107,37 +112,11 @@ function Switch(e, s)
         }
     }
 }
-function startTimer(s, e)
+function startTimer()
 {
-    try
-    {
-        getElement('.active').className = '';
-    }catch(err){}
-    e.className = 'active';
-    if (s == '')
-    {
-        makeGraphics();
-        clearInterval(timer);
-        timer = setInterval(function(){
+    timer = setInterval(function(){
             makeGraphics();
-            //getLastReadings();
-            //getStationReadings(1);
         }, 1000);
-        colorRelleno = 'rgba(47, 116, 152, 0.69)';
-    }
-    else
-     {
-         c=['rgba(191, 51, 51, 0.76)', 'rgba(61, 183, 199, 0.82)', 'rgba(40, 145, 49, 0.81)'];
-         colorRelleno = c[s-1];
-         makeGraphics();
-         clearInterval(timer);
-         timer = setInterval(function(){
-             makeGraphics();
-            //getStationReadings(s);
-            //getStationReadings(1);
-        }, 1000);
-     }
-    //timer = setInterval(function(){getLastReadings();}, 2000);
 }
 function SwitchOff(e)
 {
