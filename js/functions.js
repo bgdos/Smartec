@@ -25,9 +25,9 @@ function makeGraphics()
         actualizarDatos2(dataLenght);
     }
     /* (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)*/
-    var temperature = new Chart("graph", dataY, dataX, false, "", "Temperature", "Time", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
+    var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
     temperature.linear();
-    var humidity = new Chart("graph2", dataY2, dataX, false, "", "Humidity", "Time", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
+    var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
     humidity.linear();
 }
 function llenarDatos()
