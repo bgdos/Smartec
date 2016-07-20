@@ -10,8 +10,7 @@ body{
 .navbar-brand>span{color: #964215}
 .navbar-right{margin-right:20px}
 .date-left, .date-right, .max, .min, .avg, .value {
-    
-    border: 1px solid #05c0e5;
+    border: 1px solid #05c0e5; float: left;
 }
 hr{border-color: transparent; margin-top: 5px; margin-bottom: 5px;}
 .date-left{ background: #ccc;}
