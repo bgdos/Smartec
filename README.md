@@ -1,4 +1,4 @@
-# Smartec
+Smartec
 Smartec Dashboard
 
-Live at http://bgdos.github.io/smartec
+Live at https://bgdos.github.io/Smartec/

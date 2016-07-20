@@ -1,133 +1,196 @@
 <!doctype html>
 <html>
-<head>
-    <title>Smartec Site Monitoring System</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Untitled Document</title>
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/js.css" rel="stylesheet">
-    <script src="js/jscharts.js"></script>
-    <script type="text/javascript" src="js/svg.js"></script>
-    <script src="js/functions.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/js.js"></script>
-</head>
+    <head>
+        <title>Smartec Site Monitoring System</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Untitled Document</title>
+        <link href="css/js.css" rel="stylesheet">
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="js/jscharts.js"></script>
+        <script type="text/javascript" src="js/svg.js"></script>
+        <script src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script src="js/functions.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/js.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    </head>
     <body onload="start()">
-        <div class="sidebar" id="sidebar">
-            <div class="menu">
-                <p class="x" title="Close" onclick="showHideMenu()">X</p>
-                <h3>Juan Salgado</h3>
-                <p>Settings</p>
+        <!-- barra de navegacion -->
+        <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+            <a class="navbar-brand" href="#">
+              Smar<span>Tec</span>
+            </a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+        
+              <!-- <li class="active"><a href="index.html">Inicio</a></li> -->
+              <!-- <li><a href="servicios.html">Servicios</a></li>
+              <li><a href="conocenos.html">Conocenos</a></li>
+              <li><a href="contacto.html">Contacto</a></li> -->
+        
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><label class="navbar-text">Bienvenido</label></li>
+        <!--
+                <li><button type="button" onclick="location.href='ingresar.html'" class="btn btn-success btn-sm navbar-btn">Ingresar</button></li>
+                <li><button type="submit" onclick="location.href='registro.html'" class="btn btn-danger btn-sm navbar-btn">Registrarse</button></li>         
+        -->
+            </ul>
+          </div>
+        </div>
+        </nav>
+        <div class="container-fluid">
+            <!-- fecha -->
+            <div class="col-md-12">
+                <div class="col-md-3 date">
+                    <div class="col-md-6 date-left"><label id="day">Thursday</label></div>
+                    <div class="col-md-6 date-right"><label id="date">Nov 12, 2015</label></div>
+                </div>
+            </div>
+        </div><hr>
+        <div class="container-fluid">
+            <!-- area de graficas -->
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <!-- temperatura -->
+                    <div class="col-md-12">
+                        <h3>Temperature</h3>
+                        <svg id="graph" viewBox="0 0 950 400" preserveAspectRatio="xMaxYMid meet"></svg>
+                    </div>
+                    <!-- min - max - promedio -->
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="col-md-6 max">
+                                <label>Max</label>
+                            </div>
+                            <div class="col-md-6 value">
+                                <label class="dash-stat" id="max-val">0°</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-6 min">
+                                <label>Min</label>
+                            </div>
+                            <div class="col-md-6 value">
+                                <label class="dash-stat" id="min-val">0°</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 meter">
+                            <div class="col-md-6 avg">
+                                <label>Avg</label>
+                            </div>
+                            <div class="col-md-6 value">
+                                <label class="dash-stat" id="aver-val">0°</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3>Humidity</h3>
+                        <svg id="graph2" viewBox="0 0 950 400" preserveAspectRatio="xMaxYMid meet"></svg>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="col-md-6 max">
+                                <label>Max</label>
+                            </div>
+                            <div class="col-md-6 value">
+                                <label class="dash-stat" id="max-val2">0°</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-6 min">
+                                <label>Min</label>
+                            </div>
+                            <div class="col-md-6 value">
+                                <label class="dash-stat" id="min-val2">0°</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-6 avg">
+                                <label>Avg</label>
+                            </div>
+                            <div class="col-md-6 value">
+                                <label class="dash-stat" id="aver-val2">0°</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><hr>
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="panel bottom-box">
+                      <!-- Default panel contents -->
+                      <div class="panel-heading">
+                        Sensor <span>Status</span>
+                      </div>
+                        <div class="col-md-12  details-data">
+                            <div class="col-md-12 ">
+                                <div class="col-md-6"><label>Station 1</label></div>
+                                <div class="col-md-6">
+                                    <label>OFF</label><div class="switch-bg"><div id="s1" class="switch switch-on" onclick="Switch(this, 'Station 1')" spellcheck='true'></div></div><label>ON</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 ">
+                                <div class="col-md-6"><label>Station 2</label></div>
+                                <div class="col-md-6">
+                                    <label>OFF</label><div class="switch-bg"><div id="s2" class="switch switch-on" onclick="Switch(this, 'Station 2')" spellcheck='true'></div></div><label>ON</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6"><label>Station 2</label></div>
+                                <div class="col-md-6">
+                                    <label>OFF</label><div class="switch-bg"><div id="s3" class="switch switch-on" onclick="Switch(this, 'Station 3')" spellcheck='true'></div></div><label>ON</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel bottom-box">
+                      <!-- Default panel contents -->
+                      <div class="panel-heading">Activity</div>
+
+                      <!-- Table -->
+                      <table class="table sticky">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Temperature</th>
+                                    <th>Humidity</th>
+                                    <th>Sensor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel  bottom-box">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">Weekly Average</div>
+                        <div class="this-week"></div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
-        <header>
-            <img src='images/menu-128.png' onmouseover="showMenu()" onclick="showHideMenu()"><h1>Smar<span>tec</span></h1>
-            <div class="user">
-                <img src="images/my.jpg">
-                <p>Welcome, Juan Salgado</p>
-            </div>
-        </header>
-        <div class="col-1 today">
-            <div class="status-left day"><h4 class="dash-stat" id="day">Thursday</h4></div>
-            <div class="status-right date"><h4 class="dash-stat" id="date">Nov 12, 2015</h4></div>
-        </div>
-        <container>
-            <div class="graph">
-                <div class="col-2">
-                  <h1>Temperature</h1>
-                  <svg id="graph" viewBox="0 0 1200 400" preserveAspectRatio="xMaxYMid meet"></svg>
-                  <div class="status">
-                      <div class="col-3 display ">
-                          <div class="status-left max"><img src="images/temp.png"><h1 class="dash-stat">Max</h1></div>
-                          <div class="status-right max-val"><h1 class="dash-stat" id="max-val">0°</h1></div>
-                      </div>
-                      <div class="col-3 display ">
-                          <div class="status-left min"><img src="images/temp.png"><h1 class="dash-stat">Min</h1></div>
-                          <div class="status-right  min-val"><h1 class="dash-stat" id="min-val">0°</h1></div>
-                      </div>
-                      <div class="col-3 display">
-                          <div class="status-left aver"><img src="images/temp.png"><h1 class="dash-stat">Aver</h1></div>
-                          <div class="status-right aver-val"><h1 class="dash-stat" id="aver-val">0°</h1></div>
-                      </div>
-                    </div>
-                </div>
-                <div class="col-2 last-col">
-                  <h1>Humidity</h1>
-                  <svg id="graph2" viewBox="0 0 1200 400" preserveAspectRatio="xMaxYMid meet"></svg>
-                  <div class="status">
-                      <div class="col-3 display ">
-                          <div class="status-left max"><img src="images/humidity.png"><h1 class="dash-stat">Max</h1></div>
-                          <div class="status-right max-val"><h1 class="dash-stat" id="max-val2">0%</h1></div>
-                      </div>
-                      <div class="col-3 display ">
-                          <div class="status-left min"><img src="images/humidity.png"><h1 class="dash-stat">Min</h1></div>
-                          <div class="status-right  min-val"><h1 class="dash-stat" id="min-val2">0%</h1></div>
-                      </div>
-                      <div class="col-3 display">
-                          <div class="status-left aver"><img src="images/humidity.png"><h1 class="dash-stat">Aver</h1></div>
-                          <div class="status-right aver-val"><h1 class="dash-stat" id="aver-val2">0%</h1></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bottom">
-                <div class="colx3">
-                    <div class="header">
-                        <div><p>Sensor</p></div>
-                        <div><p>Status</p></div>
-                    </div>
-                    <div class="col-1 details-data">
-                        <div class="col-1">
-                            <div class="col-2">Station 1</div>
-                            <div class="col-2">
-                                <label>OFF</label><div class="switch-bg"><div id="s1" class="switch switch-on" onclick="Switch(this, 'Station 1')" spellcheck='true'></div></div><label>ON</label>
-                            </div>
-                        </div>
-                        <div class="col-1">
-                            <div class="col-2">Station 2</div>
-                            <div class="col-2">
-                                <label>OFF</label><div class="switch-bg"><div id="s2" class="switch switch-on" onclick="Switch(this, 'Station 2')" spellcheck='true'></div></div><label>ON</label>
-                            </div>
-                        </div>
-                        <div class="col-1">
-                            <div class="col-2">Station 3</div>
-                            <div class="col-2">
-                                <label>OFF</label><div class="switch-bg"><div id="s3" class="switch switch-on" onclick="Switch(this, 'Station 3')" spellcheck='true'></div></div><label>ON</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="colx2">
-                    <div class="header">
-                        <p>Activity</p>
-                    </div>
-                    <div class="col-1 div-activity">
-                        <section class="activity-data"  id="activity">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Temperature</th>
-                                        <th>Sensor</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </section>
-                    </div>
-                </div>
-                <div class="colx1">
-                    <div class="col-1">
-                        <div class="header">
-                        <p>Week Averages</p>
-                        </div>
-                        <div class="col-1 this-week">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </container>
     </body>
 </html>
+    
