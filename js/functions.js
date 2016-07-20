@@ -105,7 +105,7 @@ function display()
     //var text = document.getElementById('activity').innerHTML;
     var tb =  getElement('tbody');
     //tb.innerHTML = '';
-    tb.innerHTML += "<tr><td>" + valueX + "</td><td>" + valueY  + "</td><td>" + getRandomNumber(0,4) +"</td>";
+    tb.innerHTML += "<tr><td>" + valueX + "</td><td>" + valueY  + "</td><td>" + getRandomNumber(45,55) +"%</td><td>" + getRandomNumber(0,4) +"</td>";;
 }
 /**/
 function showMenu () {

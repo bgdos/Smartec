@@ -46,7 +46,7 @@ var columnColor = "#5e91c6";
 var columnToday = "#519f4a";
 var mainColor = "#1f7dd2";
 var lineColor = '#d3d3d3';
-var textColor = '#1f7dd2';
+var textColor = '#05c0e5';
 var fillColor = 'rgba(81, 184, 121, 0.97)';
 var max;
 var min;
@@ -89,37 +89,37 @@ Chart.prototype.bar = function()
     var x = startX;
     var y = startX + (interval/2);
     for (var i = 0; i < titlesX.length; i++)//lines Y
-	{
+    {
         line = drawLine(y, startX, y,305, "#d3d3d3" ); svgBar.appendChild(line);
         y += interval / 2;
         line = drawLine(y, startX, y,305, "#d3d3d3" ); svgBar.appendChild(line);
         y += interval / 2;
-	}
+    }
     var x = startX;
     for (var i = 0; i < data.length; i++)//lines X
-	{
-		line = drawLine(startX, x, xLenght, x, "#d3d3d3" ); svgBar.appendChild(line);
+    {
+        line = drawLine(startX, x, xLenght, x, "#d3d3d3" ); svgBar.appendChild(line);
         text = drawText(titlesY[i], 10, x + gridXInterval / 2, "right", 12, "#1f7dd2"); svgBar.appendChild(text);
         x += gridXInterval;
-	}
+    }
     //create text
     var y = startX + interval;
     for (var i = 0; i < titlesX.length; i++)
-	{
+    {
         text = drawText(titlesX[i], y, 320, "middle", 12, "#1f7dd2"); svgBar.appendChild(text);
         text = drawText(titlesX[i], y, 45, "middle", 12, "#1f7dd2"); svgBar.appendChild(text);
         y += interval;
-	}
+    }
     x = startX;
     y = startX - 20;
     var size = gridXInterval / 1.25;
     for (var i = 0; i < data.length; i++)
-	{
+    {
         var recValue = ((data[i]-min) / ((max-min) / titlesX.length) * interval);
         var rectangle = drawRectangle(startX, x + (gridXInterval * .1), recValue, size , "#5e91c6", colors[i], 0, 0); svgBar.appendChild(rectangle);
         text = drawText(data[i], y + recValue , x + gridXInterval / 1.75, "middle", 12, "#CCCCCC"); svgBar.appendChild(text); // testo dentro de la barra
         x += gridXInterval;
-	}
+    }
     svg.appendChild(svgBar);
 }
 /** columns chart **/
@@ -145,32 +145,32 @@ Chart.prototype.columns = function()
     var interval = 250 / titlesY.length;
     //titles x
      for (var i = 0; i < data.length; i++)
-	{
+    {
         text = drawText(titlesX[i], x - (gridYInterval / 2), 320, "middle", 12, textColor); svgBar.appendChild(text);//use "titlesX[i].substring(0, 3)" to trim titles
         text = drawText(titlesX[i], x - (gridYInterval / 2), 45, "middle", 12, textColor); svgBar.appendChild(text);
         line = drawLine(x, 50, x,305, "#d3d3d3" ); svgBar.appendChild(line);
         x += gridYInterval;
-	}
+    }
     //title y
     y = 50;
     x = 165;
     for (var i = 0; i < titlesY.length; i++)
-	{
-		line = drawLine(startX, y, xLenght , y, "#d3d3d3" ); svgBar.appendChild(line);
+    {
+        line = drawLine(startX, y, xLenght , y, "#d3d3d3" ); svgBar.appendChild(line);
         text = drawText(titlesY[i], 10, y, "right", 12, textColor); svgBar.appendChild(text);
         y += interval;
-	}
+    }
     x = startX + (gridYInterval * .1);
     y = 250;
     var size = gridYInterval / 1.2;
     for (var i = 0; i < data.length; i++)
-	{
+    {
         var color = columnColor;
         var colValue = 250-(((data[i]- min) / ((max - min) /titlesY.length)) * interval);
         var rectangle = drawRectangle(x, 50 + colValue , size, y-colValue, mainColor, colors[i], 0, 0); svgBar.appendChild(rectangle);
         text = drawText(data[i], x + (gridYInterval / 2.5) , 70 + colValue, "middle", 12, "#CCCCCC"); svgBar.appendChild(text); // testo dentro de la barra
         x += gridYInterval;
-	}
+    }
     svg.appendChild(svgBar);
 }
 //linear chart
@@ -200,38 +200,38 @@ Chart.prototype.linear = function()
     var x = 50;
     //lines x
     for (var i = 0; i < 5; i++)
-	{
-		line = drawLine(startX, x, lineXLenght,x, "#d3d3d3" ); svgLinear.appendChild(line);
+    {
+        line = drawLine(startX, x, lineXLenght,x, "#d3d3d3" ); svgLinear.appendChild(line);
         text = drawText(Math.round(max - (i * (max/5))), startX - 45, x+5, "right", 12, textColor); svgLinear.appendChild(text);
         x += 50;
-	}
+    }
     var y = startX + dataLineYInterval;
     //lines y
     for (var i = 0; i < gridX-1; i++)
-	{
+    {
         line = drawLine(y, 50, y, startY + 5, "#d3d3d3" ); svgLinear.appendChild(line);
         y += dataLineYInterval;
-	}
+    }
     y = startX;
     //titles y
     for (var i = 0; i < gridX; i++)
-	{
+    {
         if (data[i] != null)
             text = drawText(titlesX[i], y, 320, "middle", 12, textColor); svgLinear.appendChild(text);
         y += dataLineYInterval;
-	}
+    }
     //create data for the chartTooltips
     x = startX;
     y = startY;
     var x1 = 0, y1 = 0, x2= 0, y2=0;
     var fill = "", circles = [];
     for (var i = 0; i < data.length; i++)
-	{
+    {
         x1 = x + (i * dataLineYInterval);
         y1 = y - ((data[i] / max)*250);
         fill += " L"+x1+","+y1;
         circles.push({x1, y1});
-	}
+    }
     var graph = createSVG("path", {d: "M" + startX +",300 " + fill + " L"+ circles[data.length-1].x1 + ",300", fill: fillColor, stroke:"#5e91c6", strokewidth:"2px"});
     svgLinear.appendChild(graph);
     for (var i = 0; i < data.length; i++)
@@ -244,7 +244,7 @@ Chart.prototype.linear = function()
         svgLinear.appendChild(rectangle);
         svgLinear.appendChild(text);
         drawings.push({circle, rectangle, text});
-	}
+    }
     //display chartTooltip on mouse over the circles
     for (var i = 0; i < drawings.length; i++)
     {
@@ -269,12 +269,12 @@ Chart.prototype.pie = function()
     x= 450; y=35;
 
     for (var i = 0; i < data.length; i++)
-	{
+    {
         text = drawText(titlesY[i]+ ": " + ((100/total)*data[i]).toFixed(2)+"%",x, y , "right", 12, textColor); svgPie.appendChild(text);
         var rectangle = drawRectangle(x-15, y-10, 10, 10, "#5e91c6", colors[i], 0, 0); svgPie.appendChild(rectangle);
         y += 30
 
-	}
+    }
     var startAngle = 0;
     var endAngle = 0;/** drawing arcs **/
     for (var i=0; i<angleSelector.length; i++){
@@ -348,38 +348,38 @@ Chart.prototype.points = function(average)//function points(element, dataY, data
     var x = 50;
     //lines x
     for (var i = 0; i < 5; i++)
-	{
-		line = drawLine(startX, x, lineXLenght,x, "#d3d3d3" ); svgLinear.appendChild(line);
+    {
+        line = drawLine(startX, x, lineXLenght,x, "#d3d3d3" ); svgLinear.appendChild(line);
         text = drawText(Math.round(max - (i * (max/5))), startX - 45, x+5, "right", 12, textColor); svgLinear.appendChild(text);
         x += 50;
-	}
+    }
     var y = startX + dataLineYInterval;
     //lines y
     for (var i = 0; i < gridX-1; i++)
-	{
+    {
         line = drawLine(y, 50, y, startY + 5, "#d3d3d3" ); svgLinear.appendChild(line);
         y += dataLineYInterval;
-	}
+    }
     y = startX;
     //titles y
     for (var i = 0; i < gridX; i++)
-	{
+    {
         if (data[i] != null)
             text = drawText(titlesX[i], y, 320, "middle", 12, textColor); svgLinear.appendChild(text);
         y += dataLineYInterval;
-	}
+    }
     //create data for the chartTooltips
     x = startX;
     y = startY;
     var x1 = 0, y1 = 0, x2= 0, y2=0;
     var fill = "", circles = [];
     for (var i = 0; i < data.length; i++)
-	{
+    {
         x1 = x + (i * dataLineYInterval);
         y1 = y - ((data[i] / max)*250);
         fill += " L"+x1+","+y1;
         circles.push({x1, y1});
-	}
+    }
     var graph = createSVG("path", {d: "M" + startX +",300 " + fill + " L"+ circles[data.length-1].x1 + ",300", fill: fillColor, stroke:"#5e91c6", strokewidth:"2px"});
     svgLinear.appendChild(graph);
     for (var i = 0; i < data.length; i++)
@@ -392,7 +392,7 @@ Chart.prototype.points = function(average)//function points(element, dataY, data
         svgLinear.appendChild(rectangle);
         svgLinear.appendChild(text);
         drawings.push({circle, rectangle, text});
-	}
+    }
     //display chartTooltip on mouse over the circles
     for (var i = 0; i < drawings.length; i++)
     {
