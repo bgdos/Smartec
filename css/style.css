@@ -7,6 +7,7 @@ body{
     background: #031f24;
 }
 .navbar-inverse .navbar-brand{color: #158196; font-size: 30px;font-family: 'Kaushan Script', cursive;}
+label.navbar-text{font-family: 'Kaushan Script', cursive;}
 .navbar-brand>span{color: #964215}
 .navbar-right{margin-right:20px}
 .date-left, .date-right, .max, .min, .avg, .value {
@@ -33,7 +34,8 @@ label{font-size: 14px;margin-top: 5px; }
 #activity{margin: 2% 0 0 2%; width: 96%;}
 #activity p{margin-bottom: 4px; margin-top: 0px; border-bottom: solid 1px #d9d9d9}
 .table{width: 100%; text-align: center;}
-tr, td,th{border-bottom: 1pt solid rgba(145, 145, 145, 0.5);}
+tr, td,th{border-bottom: 1px solid #05c0e5}
+thead{border-bottom: 1px solid #05c0e5;}
 /** bottom boxes **/
 .bottom-box{border: 1px solid #05c0e5; height: 200px;background: transparent; border-radius: 0px;}
 .bottom-box>.panel-heading{border-bottom: 1px solid #05c0e5;}
