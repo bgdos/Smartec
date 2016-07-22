@@ -6,9 +6,9 @@ body{
 	border-radius: 0;
     background: #031f24;
 }
-.navbar-inverse .navbar-brand{color: #158196; font-size: 30px;font-family: 'Kaushan Script', cursive;}
+.navbar-brand, .logo-text{color: #158196; font-size: 30px;font-family: 'Kaushan Script', cursive;}
 label.navbar-text{font-family: 'Kaushan Script', cursive;}
-.navbar-brand>span{color: #964215}
+.navbar-brand>span, .logo-text>span{color: #964215}
 .navbar-right{margin-right:20px}
 .date-left, .date-right, .max, .min, .avg, .value {
     border: 1px solid #05c0e5; float: left;
@@ -62,3 +62,31 @@ thead{border-bottom: 1px solid #05c0e5;}
    height: 100px;
 }
 /** end of sticky headers **/
+/** login window **/
+div.well{
+  height: 250px;
+} 
+
+.Absolute-Center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: #031f24;
+}
+
+.Absolute-Center.is-Responsive {
+  width: 50%; 
+  max-height: 300px;
+  min-width: 200px;
+  max-width: 400px;
+  padding: 40px;
+  border: 1px solid #05c0e5;
+}
+
+#logo-container{
+  margin-bottom: 10px;
+  width:200px;
+  height:30px;
+}
+.logo-text{margin: 20px;}
+/** end of login **/
