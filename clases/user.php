@@ -1,6 +1,6 @@
 <?php
 	//use files
-	require_once("/../connection/connection.php");
+	require_once("../connection/connection.php");
 	require_once('exceptions.php');
 	
 	class User extends Connection
@@ -33,13 +33,13 @@
 				//receive arguments into an array
 				$args = func_get_args();
 				//get arguments
-				$id = $args[0];
+				$email = $args[0];
 				$password = $args[1];
 				//open connection to MySql
 				parent::openConnection();
 				//query
-				$query = "select name from usuarios
-									where id = ? and password = sha1(?);";
+				$query = "select nombre from usuarios
+									where email = ? and password = sha1(?);";
 				//prepare command
 				$command = parent::$connection->prepare($query);
 				//link parameters

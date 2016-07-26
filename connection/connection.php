@@ -2,7 +2,7 @@
 	class Connection
 	{
 		private static $server = 'localhost';
-		private static $data_base = 'callcenter';
+		private static $data_base = 'smartec';
 		private static $user = 'root';
 		private static $password = '';
 		protected static $connection;
