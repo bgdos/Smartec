@@ -12,10 +12,13 @@
 		{
 			$_SESSION['sesionUsuario'] = $user->getName();
 
-			$json= ' {
-						"status" : 0,
-						"user_name" : "'.$user->getName().'",
-						"token" : "'.generarToken($user->getName()).'"}';
+			$json= ' 
+							{
+								"status" : 0,
+								"user_name" : "'.$user->getName().'",
+								"email" : "'.$email.'",
+								"token" : "'.generarToken($user->getName()).'"
+							}';
 			echo $json;
 		}
 		else

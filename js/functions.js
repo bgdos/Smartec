@@ -1,6 +1,12 @@
 var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, averval = 0, maxval2 = 0, minval2 = 0, averval2 = 0, date, valueY, valueX, timer, valueY2;
 
 
+window.onload = function() {
+    if (sessionStorage.username)
+        start();
+    else
+        window.location = 'login.html';
+};
 
 function start()
 {
@@ -9,6 +15,7 @@ function start()
     date = getDate();
     getElement('day').innerHTML = date.weekday;
     getElement('date').innerHTML = date.month + '/' + date.day + '/' + date.year;
+    getElement("user-name").innerHTML = sessionStorage.username;
 }
 /**/
 function makeGraphics()
@@ -155,4 +162,9 @@ function SwitchOff(e)
     var o = document.querySelectorAll('.switch-on');
     if (o.length == 0)
         clearInterval(timer);
+}
+function cerrarSesion()
+{
+	sessionStorage.clear();
+  window.location = 'login.html';
 }

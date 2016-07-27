@@ -6,8 +6,9 @@ body{
 	border-radius: 0;
     background: #031f24;
 }
-.navbar-brand, .logo-text{color: #158196; font-size: 30px;font-family: 'Kaushan Script', cursive;}
+.navbar-brand, #user-name{color: #158196 !important; font-size: 30px;font-family: 'Kaushan Script', cursive;}
 label.navbar-text{font-family: 'Kaushan Script', cursive;}
+label.navbar-text>span{color: #158196}
 .navbar-brand>span, .logo-text>span{color: #964215}
 .navbar-right{margin-right:20px}
 .date-left, .date-right, .max, .min, .avg, .value {
@@ -65,7 +66,7 @@ thead{border-bottom: 1px solid #05c0e5;}
 /** login window **/
 div.well{
   height: 250px;
-} 
+}
 
 .Absolute-Center {
   margin: auto;
@@ -75,7 +76,7 @@ div.well{
 }
 
 .Absolute-Center.is-Responsive {
-  width: 50%; 
+  width: 50%;
   max-height: 300px;
   min-width: 200px;
   max-width: 400px;
@@ -88,5 +89,9 @@ div.well{
   width:200px;
   height:30px;
 }
+.separator{display: none;}
 .logo-text{margin: 20px;}
 /** end of login **/
+@media (max-width: 991px) {
+  .separator{display: block;}
+}

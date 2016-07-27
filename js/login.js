@@ -19,48 +19,24 @@ function obtenerToken()
 			var respuestaJSON = JSON.parse(respuesta);
 			if (respuestaJSON.status == 0)
 			{
-				sessionStorage.username = respuestaJSON.username;
+				sessionStorage.username = respuestaJSON.user_name;
 				sessionStorage.email = respuestaJSON.email;
 				sessionStorage.token = respuestaJSON.token;
 				window.location = 'index.html';
 			}
 			else
 			{
-				window.location = 'login.html#error';
 				$('.alert').show();
 			}
 		}
 	}
 	x.send(datos);
 }
-function cerrarSesion()
-{
-	sessionStorage.clear();
-}
-function validar()
-{
-	if(sessionStorage.fechaRegistro != '' && sessionStorage.fechaBaja == '')/*SI LA FECHA DE BAJA AUN NO ESTA REGISTRADA, EL USUARIO SI EXISTE*/
-	{
-		if(sessionStorage.idTipoPersonal == 1)
-		{
-			if (window.location.href != urlServidor + 'proveedor.html')
-				window.location = 'proveedor.html';
-		}
-		else if(sessionStorage.idTipoPersonal == 2)
-		{
-			if (window.location.href != urlServidor + 'cliente.html')
-				window.location = 'cliente.html';
-		}
-		else
-			window.location = 'index.html';
-	}
-	else
-	{
-		window.location = 'ingresar.html#error';/*SI LA FECHA DE BAJA NO ES NULL ENTONCES EL USUARIO YA SE DIO DE BAJA*/
-		$('.alert').show();
-	}
-}
 $( document ).ready(function() {
+	$('.alert').hide();
+	enterButton("#login-btn")
+	if (sessionStorage.username)
+			window.location = 'index.html';
 	$(".btn").click(function() {
   	obtenerToken();})
  });

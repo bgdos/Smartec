@@ -17,7 +17,7 @@
         <script src="js/js.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     </head>
-    <body onload="start()">
+    <body>
         <!-- barra de navegacion -->
         <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -34,19 +34,24 @@
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-        
+
               <!-- <li class="active"><a href="index.html">Inicio</a></li> -->
               <!-- <li><a href="servicios.html">Servicios</a></li>
               <li><a href="conocenos.html">Conocenos</a></li>
               <li><a href="contacto.html">Contacto</a></li> -->
-        
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><label class="navbar-text">Bienvenido, <span>Juan Salgado</span></label></li>
-        <!--
-                <li><button type="button" onclick="location.href='ingresar.html'" class="btn btn-success btn-sm navbar-btn">Ingresar</button></li>
-                <li><button type="submit" onclick="location.href='registro.html'" class="btn btn-danger btn-sm navbar-btn">Registrarse</button></li>         
-        -->
+              <li class="dropdown" >
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span id="user-name"></span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Usuarios</a></li>
+                  <li><a href="#">Crear Usuario</a></li>
+                  <li><a href="#">Modificar Usuario</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li onclick="cerrarSesion()"><a href="#">Salir</a></li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>
@@ -96,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><br class="separator">
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <h3>Humidity</h3>
@@ -186,11 +191,10 @@
                         <!-- Default panel contents -->
                         <div class="panel-heading">Weekly Average</div>
                         <div class="this-week"></div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </body>
 </html>
-    

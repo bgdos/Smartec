@@ -51,12 +51,12 @@ CREATE TABLE `usuarios`
 (
 	`email` VARCHAR(50) NOT NULL COMMENT 'Correo del usuario',
 	`password` VARCHAR(50) NOT NULL COMMENT 'Password del Usuario',
-	`name` VARCHAR(50) NOT NULL COMMENT 'nombre del Usuario',
+	`nombre` VARCHAR(50) NOT NULL COMMENT 'nombre del Usuario',
 	CONSTRAINT `PK_Usuarios` PRIMARY KEY (`email` ASC)
 )
 
 ;
-
+INSERT INTO `usuarios`(`email`, `password`, `nombre`) VALUES ("juansutt@hotmail.com",sha1("abc123"),"Juan Salgado");
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
 ALTER TABLE `movimiento` 

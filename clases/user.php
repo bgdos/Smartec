@@ -2,26 +2,26 @@
 	//use files
 	require_once("../connection/connection.php");
 	require_once('exceptions.php');
-	
+
 	class User extends Connection
 	{
 		//attributes
 		private $email;
 		private $name;
 		private $password;
-		
+
 		//methods
 		public function getEmail() { return $this->email; }
 		public function setEmail($value) { $this->email = $value; }
 		public function getName() { return $this->name; }
 		public function setName($value) { $this->name = $value; }
 		public function setPassword($value) { $this->password = $value; }
-		
+
 		//constructor
 		function __construct()
 		{
 			//if no arguments received, create empty object
-			if(func_num_args() == 0) 
+			if(func_num_args() == 0)
 			{
 				$this->email = '';
 				$this->name = '';
@@ -54,11 +54,7 @@
 				mysqli_stmt_close($command);
 				//close connection
 				parent::closeConnection();
-				//if not found throw exception
-				if(!$found) throw(new RecordNotFoundException());	
 			}
-		}	
+		}
 	}
 ?>
-
-
