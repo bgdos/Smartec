@@ -6,7 +6,7 @@ body{
 	border-radius: 0;
     background: #031f24;
 }
-.navbar-brand, #user-name{color: #158196 !important; font-size: 30px;font-family: 'Kaushan Script', cursive;}
+.navbar-brand, .logo-text, #user-name{color: #158196 !important; font-size: 30px;font-family: 'Kaushan Script', cursive;}
 label.navbar-text{font-family: 'Kaushan Script', cursive;}
 label.navbar-text>span{color: #158196}
 .navbar-brand>span, .logo-text>span{color: #964215}
