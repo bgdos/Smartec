@@ -57,6 +57,7 @@ CREATE TABLE `usuarios`
 
 ;
 INSERT INTO `usuarios`(`email`, `password`, `nombre`) VALUES ("juansutt@hotmail.com",sha1("abc123"),"Juan Salgado");
+INSERT INTO `usuarios`(`email`, `password`, `nombre`) VALUES ("francisco_dza@hotmail.com",sha1("abc123"),"Francisco Avila");
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
 ALTER TABLE `movimiento` 
