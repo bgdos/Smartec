@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	header('Access-Control-Allow-Origin: *');
-	require_once('../clases/user.php');
+	require_once('../classes/user.php');
 
 	if (isset($_POST['email']) & isset($_POST['password']))
 	{

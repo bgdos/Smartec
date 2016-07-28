@@ -3,7 +3,7 @@ var urlServidor = 'http://localhost/smartec/';
 var token ='';
 var x = new XMLHttpRequest();
 var login;
-var url= urlServidor + 'servicios/gettoken.php';
+var url= urlServidor + 'services/gettoken.php';
 
 
 function obtenerToken()

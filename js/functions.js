@@ -12,6 +12,7 @@ function start()
 {
     startTimer();
     //getWeekAverages();
+    getSensorReadings()
     date = getDate();
     getElement('day').innerHTML = date.weekday;
     getElement('date').innerHTML = date.month + '/' + date.day + '/' + date.year;

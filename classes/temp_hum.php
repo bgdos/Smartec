@@ -1,7 +1,7 @@
 <?php
-    include_once('/../connection/connection.php');
+    include_once('../connection/connection.php');
     include_once('sensor.php');
-    class Reading extends Connection
+    class Temp_hum extends Connection
     {
         /** attributes **/
         private $id, $date, $temperature, $humidity, $sensor;
@@ -13,10 +13,10 @@
         public function getDate() { return $this-> date; }
         public function setTemperature($value) { $this->temperature = $value; }
         public function getTemperature() { return $this->temperature; }
-        public function setTemperature($value) { $this->temperature = $value; }
-        public function getTemperature() { return $this->temperature; }
-        public function setStation($value) { $this->sensor = new Sensor($value); }
-        public function getStation() { return $this->sensor; }
+        public function setHumidity($value) { $this->humidity = $value; }
+        public function getHumidity() { return $this->humidity; }
+        public function setSensor($value) { $this->sensor = new Sensor($value); }
+        public function getSensor() { return $this->sensor; }
         
         /** constructor **/
         function __construct()
@@ -28,17 +28,17 @@
                 $this->id = 0;
                 $this->date = '';
                 $this->temperature = '';
-                $this->station = new Station();
+                $this->sensor = new Sensor();
             }
             if ($num == 1)
             {
                 $id = $args[0];
-                $instruction = 'SELECT reading_date, reading_temperature, reading_id_station FROM readings WHERE reading_id = ?';
+                $instruction = 'SELECT temperatura, humedad, sensor_id, hora FROM temp_hum WHERE id = ?';
                 parent::openConnection();
                 $command = parent::$connection->prepare($instruction);
                 $command->bind_param('i', $id);
                 $command->execute();
-                $command->bind_result($date, $temperature, $station);
+                $command->bind_result($temperature, $humidity, $sensor, $date);
                 $found = $command->fetch();
                 mysqli_stmt_close($command);
                 parent::closeConnection();
@@ -47,16 +47,19 @@
                     $this->id = $id;
                     $this->date = $date;
                     $this->temperature = $temperature;
-                    $this->station = new Station($station);
+                    $this->humidity = $humidity;
+                    $this->sensor = new Sensor($sensor);
                 }
                 else
                 {
                     $this->id = 0;
                     $this->date = '';
                     $this->temperature = '';
-                    $this->station = new Station();
+                    $this->humidity = $humidity;
+                    $this->sensor = new Sensor();
                 }
             }
+            echo $this->temperature;
         }
         public function getWeekAverages()
         {

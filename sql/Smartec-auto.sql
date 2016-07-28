@@ -34,6 +34,7 @@ CREATE TABLE `sensores`
 )
 
 ;
+INSERT INTO `sensores`(`descripcion` , `estado`) VALUES ('Sensor de temperatura/humedad', 1);
 
 CREATE TABLE `temp_hum`
 (
@@ -46,6 +47,7 @@ CREATE TABLE `temp_hum`
 )
 
 ;
+INSERT INTO `temp_hum`(`sensor_id`, `temperatura`, `humedad`, `hora`) VALUES(1, 25.5, 48.3, '2016-07-27 03:14:07.999999');
 
 CREATE TABLE `usuarios`
 (

@@ -1,6 +1,6 @@
 <?php
-    require_once('/../connection/connection.php');
-    class Station extends Connection
+    require_once('../connection/connection.php');
+    class Sensor extends Connection
     {
         /** attributes **/
         private $id, $description, $status;
@@ -53,7 +53,7 @@
                 {
                     $this->id = $id;
                     $this->description = $description;
-                    $this->ip = $status;
+                    $this->status = $status;
                 }
                 else
                 {

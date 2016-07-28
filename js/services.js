@@ -1,6 +1,6 @@
-var urlServer = 'http://localhost/bumo/';
+var urlServer = 'http://localhost/smartec/';
 var urlLastReadings = "services/getLastReadings.php";
-var urlStationReadings = "services/getStationReadings.php";
+var urlStationReadings = "services/getSensorReadings.php";
 var urlWeekAverages = "services/getWeekAverages.php";
 var x = new XMLHttpRequest;
 var glr = gwa = false;
@@ -28,9 +28,9 @@ function getLastReadings()
     x.send();
 }
 /** read data by station**/
-function getStationReadings(station)
+function getSensorReadings()
 {
-    var url = urlServer + urlStationReadings + '?station='+station;
+    var url = urlServer + urlStationReadings + '?sensor=' + 1;
     x.open('GET', url, true);
     /*x.setRequestHeader("user",  sessionStorage.user);
     x.setRequestHeader("token", sessionStorage.token);*/
