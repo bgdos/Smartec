@@ -3,7 +3,7 @@
     include_once('../classes/temp_hum.php');
     class Catalog extends Connection
     {
-        function getSensorReadings($i)
+        public static function getSensorReadings($i)
         {
             $ids = array();
             $readings = array();

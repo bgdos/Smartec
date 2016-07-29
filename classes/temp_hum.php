@@ -5,7 +5,7 @@
     {
         /** attributes **/
         private $id, $date, $temperature, $humidity, $sensor;
-        
+
         /** functions **/
         public function setId($value) { $this->id = $value; }
         public function getId() { return $this->id; }
@@ -17,7 +17,7 @@
         public function getHumidity() { return $this->humidity; }
         public function setSensor($value) { $this->sensor = new Sensor($value); }
         public function getSensor() { return $this->sensor; }
-        
+
         /** constructor **/
         function __construct()
         {
@@ -59,15 +59,14 @@
                     $this->sensor = new Sensor();
                 }
             }
-            echo $this->temperature;
         }
         public function getWeekAverages()
         {
-            $instruction = 'SELECT 
+            $instruction = 'SELECT
             avg(case when `reading_id_station` = 1 then `reading_temperature` else null end) as Station1,
             avg(case when `reading_id_station` = 2 then `reading_temperature` else null end) as Station2,
             avg(case when `reading_id_station` = 3 then `reading_temperature` else null end) as Station3
-            FROM readings 
+            FROM readings
             Where YEARWEEK (`reading_date`) = YEARWEEK(current_date)';
             parent::openConnection();
             $command = parent::$connection->prepare($instruction);
@@ -90,7 +89,7 @@
                 $averages['station3'] = 0;
             }
             return $averages;
-            
+
         }
     }
 ?>

@@ -1,6 +1,7 @@
 var urlServer = 'http://localhost/smartec/';
 var urlLastReadings = "services/getLastReadings.php";
-var urlStationReadings = "services/getSensorReadings.php";
+var urlSensorTempHumReadings = "services/getSensorTempHumReadings.php";
+var urlSensorMovementReadings = "services/getSensorMovemntReadings.php";
 var urlWeekAverages = "services/getWeekAverages.php";
 var x = new XMLHttpRequest;
 var glr = gwa = false;
@@ -27,11 +28,32 @@ function getLastReadings()
     }
     x.send();
 }
-/** read data by station**/
-function getSensorReadings()
+/** read data by sensor**/
+function getSensorTempHumReadings()
 {
-    var url = urlServer + urlStationReadings + '?sensor=' + 1;
-    x.open('GET', url, true);
+    var url = urlServer + urlSensorTempHumReadings + '?sensor=' + 1;
+    x.open('POST', url, true);
+    /*x.setRequestHeader("user",  sessionStorage.user);
+    x.setRequestHeader("token", sessionStorage.token);*/
+    x.onreadystatechange = function()
+    {
+        if (x.status == 200 & x.readyState == 4)
+        {
+            var respuesta = x.responseText;
+            //parsear a JSON
+            var respuestaJSON = JSON.parse(respuesta);
+            if (respuestaJSON.status == 0)
+                Activity(respuestaJSON);
+            else if (glr == false)
+                popInfo('Message', respuestaJSON.message), glr = true;
+        }
+    }
+    x.send();
+}
+function getSensorMovementReadings()
+{
+    var url = urlServer + urlSensorTempHumReadings + '?sensor=' + 2;
+    x.open('POST', url, true);
     /*x.setRequestHeader("user",  sessionStorage.user);
     x.setRequestHeader("token", sessionStorage.token);*/
     x.onreadystatechange = function()
