@@ -1,4 +1,6 @@
 #Login
+	-Interfaz
+		-Se creo la interfaz para el inicio de sesión.
 	-Validaciones
 		-Si el usuario desea ingresar al dashboard lo redirecciona a login.
 		-Si el usuario ya se valido anteriormente y sale de el dasboard, al regresar no necesitara validarse.
@@ -11,4 +13,17 @@
 	-Funciones
 		-Se agrego cerrar sesión (Click en nombre), destruye la sesion actual.
 	-Servicios
-		-
+		-Se crearon las funciones para conectarse a los servicios.
+#PHP
+	-Clases
+		-movement.php (lecturas del sensor de movimiento).
+		-sensor.php (sensores).
+		-temp_hum.php (lecturas del sensor de temperatura).
+		-user.php (informacion de usuarios).
+	-Catalogos
+		-Lecturas del sensor de temperatura / humedad.
+		-Lecturas del sensor de movimiento
+	-Sercicios
+		-gettoken.php (validacion de usuario).
+		-getSensorMovementReadings (Lecturas del sensor de movimiento).
+		-getSensorTempHum (Lecturas del sensor de temperatura).
