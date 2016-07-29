@@ -1,7 +1,7 @@
 var urlServer = 'http://localhost/smartec/';
 var urlLastReadings = "services/getLastReadings.php";
 var urlSensorTempHumReadings = "services/getSensorTempHumReadings.php";
-var urlSensorMovementReadings = "services/getSensorMovemntReadings.php";
+var urlSensorMovementReadings = "services/getSensorMovementReadings.php";
 var urlWeekAverages = "services/getWeekAverages.php";
 var x = new XMLHttpRequest;
 var glr = gwa = false;
@@ -43,7 +43,7 @@ function getSensorTempHumReadings()
             //parsear a JSON
             var respuestaJSON = JSON.parse(respuesta);
             if (respuestaJSON.status == 0)
-                Activity(respuestaJSON);
+                getSensorMovementReadings();/**Activity(respuestaJSON)**/
             else if (glr == false)
                 popInfo('Message', respuestaJSON.message), glr = true;
         }
@@ -52,7 +52,7 @@ function getSensorTempHumReadings()
 }
 function getSensorMovementReadings()
 {
-    var url = urlServer + urlSensorTempHumReadings + '?sensor=' + 2;
+    var url = urlServer + urlSensorMovementReadings + '?sensor=' + 2;
     x.open('POST', url, true);
     /*x.setRequestHeader("user",  sessionStorage.user);
     x.setRequestHeader("token", sessionStorage.token);*/
@@ -64,7 +64,7 @@ function getSensorMovementReadings()
             //parsear a JSON
             var respuestaJSON = JSON.parse(respuesta);
             if (respuestaJSON.status == 0)
-                Activity(respuestaJSON);
+                true;// Activity(respuestaJSON);
             else if (glr == false)
                 popInfo('Message', respuestaJSON.message), glr = true;
         }

@@ -2,15 +2,15 @@
 	session_start();
 	header('Access-Control-Allow-Origin: *');
 	require_once('../classes/sensor.php');
-    require_once('../classes/temp_hum.php');
-    require_once('../connection/catalogs.php');
+  require_once('../classes/movement.php');
+  require_once('../connection/catalogs.php');
 
 
   if (isset($_REQUEST['sensor']))
 	{
     $sensor_id = $_REQUEST['sensor'];
 		$sensor = new Sensor($sensor_id);
-    $readings = Catalog::getSensorTempHumReadings($sensor_id);
+    $readings = Catalog::getSensorMovementReadings($sensor_id);
     $first = true;
 		if ($sensor->getDescription()!='')
 		{
@@ -29,8 +29,7 @@
                         {
                             "id" : '.$r->getId().',
                             "date" : "'.$r->getDate().'",
-                            "temperature" : '.$r->getTemperature().',
-                            "humidity" : '.$r->getHumidity().'
+                            "picture_path" : "'.$r->getPicturePath().'"
                         }';
                     }
                     $json .= ']
@@ -39,7 +38,7 @@
 		}
 		else
 		{
-			echo '{ "status" : 1, "message" : "Access Denied" }';
+			echo '{ "status" : 1, "message" : "Sensor doesn&#8217t exist" }';
 		}
 	}
 	else

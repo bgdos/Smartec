@@ -10,7 +10,7 @@
 	{
     $sensor_id = $_REQUEST['sensor'];
 		$sensor = new Sensor($sensor_id);
-    $readings = Catalog::getSensorReadings($sensor_id);
+    $readings = Catalog::getSensorTempHumReadings($sensor_id);
     $first = true;
 		if ($sensor->getDescription()!='')
 		{

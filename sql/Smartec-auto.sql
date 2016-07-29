@@ -4,7 +4,7 @@
 /*  DBMS       : MySql 						*/
 /* ---------------------------------------------------- */
 
-SET FOREIGN_KEY_CHECKS=0 
+SET FOREIGN_KEY_CHECKS=0
 ;
 
 
@@ -35,6 +35,7 @@ CREATE TABLE `sensores`
 
 ;
 INSERT INTO `sensores`(`descripcion` , `estado`) VALUES ('Sensor de temperatura/humedad', 1);
+INSERT INTO `sensores`(`descripcion`, `estado`) VALUES ('sensor de movimiento',1);
 
 CREATE TABLE `temp_hum`
 (
@@ -47,7 +48,8 @@ CREATE TABLE `temp_hum`
 )
 
 ;
-INSERT INTO `temp_hum`(`sensor_id`, `temperatura`, `humedad`, `hora`) VALUES(1, 25.5, 48.3, '2016-07-27 03:14:07.999999');
+INSERT INTO `temp_hum`(`sensor_id`, `temperatura`, `humedad`, `hora`) VALUES(1, 25.5, 48.3, '2016-07-28 03:14:07.999999');
+INSERT INTO `temp_hum`(`sensor_id`, `temperatura`, `humedad`, `hora`) VALUES(1, 26.3, 47.5, '2016-07-28 03:18:09.5');
 
 CREATE TABLE `usuarios`
 (
@@ -60,31 +62,33 @@ CREATE TABLE `usuarios`
 ;
 INSERT INTO `usuarios`(`email`, `password`, `nombre`) VALUES ("juansutt@hotmail.com",sha1("abc123"),"Juan Salgado");
 INSERT INTO `usuarios`(`email`, `password`, `nombre`) VALUES ("francisco_dza@hotmail.com",sha1("abc123"),"Francisco Avila");
+
+INSERT INTO `movimiento` (`id`, `ruta_foto`, `hora`, `sensor_id`) VALUES ('1', 'fotos/1.jpg', CURRENT_TIMESTAMP, '2'), ('2', 'fotos/2.jpg', CURRENT_TIMESTAMP, '2')
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
-ALTER TABLE `movimiento` 
+ALTER TABLE `movimiento`
  ADD INDEX `IXFK_movimiento_sensores` (`sensor_id` ASC)
 ;
 
-ALTER TABLE `sensores` 
+ALTER TABLE `sensores`
  ADD INDEX `IXFK_sensores_sensores` (`id` ASC)
 ;
 
-ALTER TABLE `temp_hum` 
+ALTER TABLE `temp_hum`
  ADD INDEX `IXFK_temp_hum_sensores` (`sensor_id` ASC)
 ;
 
 /* Create Foreign Key Constraints */
 
-ALTER TABLE `movimiento` 
+ALTER TABLE `movimiento`
  ADD CONSTRAINT `FK_movimiento_sensores`
 	FOREIGN KEY (`sensor_id`) REFERENCES `sensores` (`id`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE `temp_hum` 
+ALTER TABLE `temp_hum`
  ADD CONSTRAINT `FK_temp_hum_sensores`
 	FOREIGN KEY (`sensor_id`) REFERENCES `sensores` (`id`) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-SET FOREIGN_KEY_CHECKS=1 
+SET FOREIGN_KEY_CHECKS=1
 ;
