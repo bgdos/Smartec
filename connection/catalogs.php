@@ -3,13 +3,13 @@
     include_once('../classes/temp_hum.php');
     class Catalog extends Connection
     {
-        public static function getSensorReadings($i)
+        public static function getSensorTempHumReadings($i)
         {
             $ids = array();
             $readings = array();
             $instruction = 'SELECT id FROM temp_hum WHERE date(`hora`) = curdate() AND sensor_id = ? ORDER BY id DESC LIMIT 10';
             parent::openConnection();
-            $command = parent::$connection->prepare($instruction);            
+            $command = parent::$connection->prepare($instruction);
             $command->bind_param('i', $i);
             $command->execute();
             $command->bind_result($id);
