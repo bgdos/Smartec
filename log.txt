@@ -1,0 +1,14 @@
+#Login
+	-Validaciones
+		-Si el usuario desea ingresar al dashboard lo redirecciona a login.
+		-Si el usuario ya se valido anteriormente y sale de el dasboard, al regresar no necesitara validarse.
+		-Si el usuario ya se valido anteriormente e intenta ingresar a login, se redireccionara al dashboard.
+	-Servicio
+		-Recibe los parametros de email y password (metodo post).
+#Dasboard
+	-Interfaz
+		-Se termino la nueva interfaz.
+	-Funciones
+		-Se agrego cerrar sesión (Click en nombre), destruye la sesion actual.
+	-Servicios
+		-
