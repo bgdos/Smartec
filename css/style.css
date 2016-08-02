@@ -43,6 +43,8 @@ thead{border-bottom: 1px solid #05c0e5;}
 .bottom-box>.panel-heading{border-bottom: 1px solid #05c0e5;}
 .bottom-box>.panel-heading>span{margin-left: 50%}
 .details-data{padding-left: 0px;}
+.btn-dark{background:transparent; border: 1px solid #05c0e5;}
+.modal-content{background: #1e2426}
 
 /** sticky headers **/
 .sticky thead, .sticky tbody { display: block; }
@@ -90,6 +92,7 @@ div.well{
   width:200px;
   height:30px;
 }
+/** end of login window **/
 .separator{display: none;}
 .logo-text{margin: 20px;}
 /** end of login **/

@@ -1,4 +1,4 @@
-var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, averval = 0, maxval2 = 0, minval2 = 0, averval2 = 0, date, valueY, temp_hum_id, timer, valueY2;
+var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, averval = 0, maxval2 = 0, minval2 = 0, averval2 = 0, date, valueY, temp_hum_id, movement, timer, valueY2;
 
 
 window.onload = function() {
@@ -23,7 +23,7 @@ function makeGraphics(data)
 {
     var dataLenght = 10;
     var max= 40;
-    llenarDatos(data.readings);
+    fillData(data.readings);
     temp_hum_id = data.id;
     // (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)
     var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
@@ -31,15 +31,15 @@ function makeGraphics(data)
     var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
     humidity.linear();
 }
-function llenarDatos(data)
+function fillData(data)
 {
     dataY = [], dataY2 = [];
-    var tb =  getElement('tbody');
+    var tb =  getElement('#tbody1');
     tb.innerHTML = "";
     for (var i = 0; i < data.length; i++) {
         dataY.push(data[i].temperature); dataY2.push(data[i].humidity); dataX.push(getTime2(data[i].date));
     };
-    for (var i = data.length - 1; i >= 0; i--) {
+    for (var i = 0; i < data.length; i++) {
         tb.innerHTML += "<tr><td>" + getTime2(data[i].date) + "</td><td>" + data[i].temperature  + "</td><td>" + data[i].humidity +"%</td><td>" + temp_hum_id +"</td>";
     };
     maxval = arrayMaximum(dataY);//found the maximum value in the array
@@ -54,6 +54,38 @@ function llenarDatos(data)
     getElement("max-val2").innerHTML = maxval2 + "%";//display the maximum value in the dashboard
     getElement("min-val2").innerHTML = minval2 + "%";//display the minimum value in the dashboard
     getElement("aver-val2").innerHTML = averval2 + "%";//diplay the average value in the dashboard
+    getSensorMovementReadings();
+}
+function logMovement(data) {
+    var tb =  getElement('#tbody2');
+    tb.innerHTML = "";
+    if(movement != undefined)
+    {   
+        if(data.readings[0].date != movement.readings[0].date)
+        {
+            movement = data;
+            loadModal(0);
+        }
+    }
+    movement = data;
+    var readings = data.readings;
+    for (var i = 0; i < readings.length; i++) {
+        tb.innerHTML += "<tr><td>" + getTime2(readings[i].date) + "</td><td>" + readings[i].picture_path  + "</td><td><input type='button' class='btn btn-dark' value='Open Picture' onclick='loadModal("+ i +")'></td><td>" + data.id +"</td>";
+    };
+}
+function loadModal(item) {
+    $("#pic").attr("src",movement.readings[item].picture_path);
+    $("#picTime").html("<b>Picture Taken: </b>" + movement.readings[item].date);
+    $("#picPath").html("<b>Picture Path: </b>" + movement.readings[item].picture_path);
+    $("#picSensor").html("<b>Sensor id: </b>" + movement.id);
+    openModal();
+}
+function openModal(){
+    $("#picture").modal('show');
+
+}
+function closeModal(){
+    $("#picture").modal('hide');
 }
 /** datos estaticos **/
 /**

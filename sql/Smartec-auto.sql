@@ -63,7 +63,7 @@ CREATE TABLE `usuarios`
 INSERT INTO `usuarios`(`email`, `password`, `nombre`) VALUES ("juansutt@hotmail.com",sha1("abc123"),"Juan Salgado");
 INSERT INTO `usuarios`(`email`, `password`, `nombre`) VALUES ("francisco_dza@hotmail.com",sha1("abc123"),"Francisco Avila");
 
-INSERT INTO `movimiento` (`id`, `ruta_foto`, `hora`, `sensor_id`) VALUES ('1', 'fotos/1.jpg', CURRENT_TIMESTAMP, '2'), ('2', 'fotos/2.jpg', CURRENT_TIMESTAMP, '2')
+INSERT INTO `movimiento` (`id`, `ruta_foto`, `hora`, `sensor_id`) VALUES ('1', 'pics/1.png', CURRENT_TIMESTAMP, '2'), ('2', 'pics/2.png', CURRENT_TIMESTAMP, '2'), ('3', 'pics/3.gif', CURRENT_TIMESTAMP, '2');
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
 ALTER TABLE `movimiento`

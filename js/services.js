@@ -43,7 +43,7 @@ function getSensorTempHumReadings()
             //parsear a JSON
             var respuestaJSON = JSON.parse(respuesta);
             if (respuestaJSON.status == 0)
-                makeGraphics(respuestaJSON);/**Activity(respuestaJSON)**/
+                makeGraphics(respuestaJSON);
             else if (glr == false)
                 popInfo('Message', respuestaJSON.message), glr = true;
         }
@@ -64,7 +64,7 @@ function getSensorMovementReadings()
             //parsear a JSON
             var respuestaJSON = JSON.parse(respuesta);
             if (respuestaJSON.status == 0)
-                true;// Activity(respuestaJSON);
+                logMovement(respuestaJSON);
             else if (glr == false)
                 popInfo('Message', respuestaJSON.message), glr = true;
         }

@@ -181,7 +181,7 @@
                                     <th>Sensor</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody1">
                             </tbody>
                         </table>
                     </div>
@@ -190,11 +190,47 @@
                     <div class="panel  bottom-box">
                         <!-- Default panel contents -->
                         <div class="panel-heading">Movement Sensor Log</div>
-                        <div class="this-week"></div>
+                        <!-- Table -->
+                        <table class="table sticky">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Picure</th>
+                                    <th>Action</th>
+                                    <th>Sensor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody2">
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container">
+          <!-- Modal -->
+          <div class="modal fade" id="picture" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Intruder <b> Alert</b></h4>
+                </div>
+                <div class="modal-body">
+                  <center><img id="pic" class="img-circle img-responsive"></center>
+                  <p id="picTime"></p>
+                  <p id="picPath"></p>
+                  <p id="picSensor"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
     </body>
 </html>
