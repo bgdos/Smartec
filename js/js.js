@@ -178,6 +178,15 @@ function getTime()
     var time = hour + ":" + minutes + ":" + seconds;
     return time;
 }
+function getTime2(date)
+{
+    date = new Date(date);
+    var hour = (date.getHours() < 10) ? "0" + date.getHours() : date.getHours();
+    var minutes = (date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes();
+    var seconds = (date.getSeconds() < 10) ? "0" + date.getSeconds() : date.getSeconds();
+    var time = hour + ":" + minutes + ":" + seconds;
+    return time;
+}
 /** get a random number **/
 function getRandomNumber(a, b)
 {

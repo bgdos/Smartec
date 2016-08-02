@@ -23,6 +23,7 @@ hr{border-color: transparent; margin-top: 5px; margin-bottom: 5px;}
 .min{background: #158196; color: #fff;}
 .avg{background: #15965f; color: #fff;}
 label{font-size: 14px;margin-top: 5px; }
+
 /** switch **/
 .switch-bg{width: 60px; background: #d6d6d6; height: 10px; float: left; margin: 10px 5px 0 5px;border-radius: 30px; border: 2pt solid #b7b7b7}
 .switch{margin: -9px 0 -5px 2px; background: #51acb8;position: absolute; height: 25px;width: 25px; border-radius: 50px; border: 2pt solid;transition: .1s ease-in-out;}

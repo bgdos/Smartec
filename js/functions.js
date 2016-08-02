@@ -1,4 +1,4 @@
-var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, averval = 0, maxval2 = 0, minval2 = 0, averval2 = 0, date, valueY, valueX, timer, valueY2;
+var dataY = [],dataY2 = [], dataX = [], contador = 0, maxval = 0, minval = 0, averval = 0, maxval2 = 0, minval2 = 0, averval2 = 0, date, valueY, temp_hum_id, timer, valueY2;
 
 
 window.onload = function() {
@@ -12,13 +12,51 @@ function start()
 {
     startTimer();
     //getWeekAverages();
-    getSensorTempHumReadings();
+    //getSensorTempHumReadings();
     date = getDate();
     getElement('day').innerHTML = date.weekday;
     getElement('date').innerHTML = date.month + '/' + date.day + '/' + date.year;
     getElement("user-name").innerHTML = sessionStorage.username;
 }
-/**/
+/** **/
+function makeGraphics(data)
+{
+    var dataLenght = 10;
+    var max= 40;
+    llenarDatos(data.readings);
+    temp_hum_id = data.id;
+    // (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)
+    var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
+    temperature.linear();
+    var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
+    humidity.linear();
+}
+function llenarDatos(data)
+{
+    dataY = [], dataY2 = [];
+    var tb =  getElement('tbody');
+    tb.innerHTML = "";
+    for (var i = 0; i < data.length; i++) {
+        dataY.push(data[i].temperature); dataY2.push(data[i].humidity); dataX.push(getTime2(data[i].date));
+    };
+    for (var i = data.length - 1; i >= 0; i--) {
+        tb.innerHTML += "<tr><td>" + getTime2(data[i].date) + "</td><td>" + data[i].temperature  + "</td><td>" + data[i].humidity +"%</td><td>" + temp_hum_id +"</td>";
+    };
+    maxval = arrayMaximum(dataY);//found the maximum value in the array
+    minval = arrayMinimum(dataY);//found the minimum value in the array
+    averval = arrayAverage(dataY);//get the average value from the array
+    maxval2 = arrayMaximum(dataY2);//found the maximum value in the array
+    minval2 = arrayMinimum(dataY2);//found the minimum value in the array
+    averval2 = arrayAverage(dataY2);//get the average value from the array
+    getElement("max-val").innerHTML = maxval + "&deg";//display the maximum value in the dashboard
+    getElement("min-val").innerHTML = minval + "&deg";//display the minimum value in the dashboard
+    getElement("aver-val").innerHTML = averval + "&deg";//diplay the average value in the dashboard
+    getElement("max-val2").innerHTML = maxval2 + "%";//display the maximum value in the dashboard
+    getElement("min-val2").innerHTML = minval2 + "%";//display the minimum value in the dashboard
+    getElement("aver-val2").innerHTML = averval2 + "%";//diplay the average value in the dashboard
+}
+/** datos estaticos **/
+/**
 function makeGraphics()
 {
     var dataLenght = 10;
@@ -32,13 +70,13 @@ function makeGraphics()
         actualizarDatos(dataLenght);//actualizar datos
         actualizarDatos2(dataLenght);
     }
-    /* (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)*/
+    // (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)
     var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
     temperature.linear();
     var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
     humidity.linear();
 }
-function llenarDatos()
+function llenarDatos(data)
 {
 
     valueY = getRandomNumber(28, 35); //generate random number
@@ -100,20 +138,13 @@ function actualizarDatos2(number)
     minval2 = arrayMinimum(dataY2);
     averval2 = arrayAverage(dataY2);
     display(); //display on the dashboard
-}
-function display()
+}**/
+function display(data)
 {
-    document.getElementById("max-val").innerHTML = maxval + "&deg";//display the maximum value in the dashboard
-    document.getElementById("min-val").innerHTML = minval + "&deg";//display the minimum value in the dashboard
-    document.getElementById("aver-val").innerHTML = averval + "&deg";//diplay the average value in the dashboard
-    document.getElementById("max-val2").innerHTML = maxval2 + "%";//display the maximum value in the dashboard
-    document.getElementById("min-val2").innerHTML = minval2 + "%";//display the minimum value in the dashboard
-    document.getElementById("aver-val2").innerHTML = averval2 + "%";//diplay the average value in the dashboard
+    
     /** display the data in the activity text area **/
     //var text = document.getElementById('activity').innerHTML;
-    var tb =  getElement('tbody');
-    //tb.innerHTML = '';
-    tb.innerHTML += "<tr><td>" + valueX + "</td><td>" + valueY  + "</td><td>" + getRandomNumber(45,55) +"%</td><td>" + getRandomNumber(0,4) +"</td>";;
+    
 }
 /**/
 function showMenu () {
@@ -153,7 +184,7 @@ function Switch(e, s)
 function startTimer()
 {
     timer = setInterval(function(){
-            makeGraphics();
+            getSensorTempHumReadings()/**makeGraphics()**/;
         }, 1000);
 }
 function SwitchOff(e)
