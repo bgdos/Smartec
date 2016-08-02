@@ -23,7 +23,7 @@
 	-Catalogos
 		-Lecturas del sensor de temperatura / humedad.
 		-Lecturas del sensor de movimiento
-	-Sercicios
+	-Servicios
 		-gettoken.php (validacion de usuario).
 		-getSensorMovementReadings (Lecturas del sensor de movimiento).
 		-getSensorTempHum (Lecturas del sensor de temperatura).
