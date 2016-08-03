@@ -23,13 +23,17 @@ function makeGraphics(data)
 {
     var dataLenght = 10;
     var max= 40;
-    fillData(data.readings);
-    temp_hum_id = data.id;
-    // (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)
-    var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
-    temperature.linear();
-    var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
-    humidity.linear();
+    if (data.readings.length > 0) {
+        fillData(data.readings);
+        temp_hum_id = data.id;
+        // (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)
+        var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
+        temperature.linear();
+        var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
+        humidity.linear();
+    }
+    else getSensorMovementReadings();
+    
 }
 function fillData(data)
 {
