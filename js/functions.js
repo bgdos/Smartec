@@ -18,7 +18,7 @@ function start()
     getElement('date').innerHTML = date.month + '/' + date.day + '/' + date.year;
     getElement("user-name").innerHTML = sessionStorage.username;
 }
-/** **/
+/** create chart **/
 function makeGraphics(data)
 {
     var dataLenght = 10;
