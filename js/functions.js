@@ -22,6 +22,7 @@ function start()
 function makeGraphics(data)
 {
     var dataLenght = 10;
+	dataX = [];
     var max= 40;
     if (data.readings.length > 0) {
         fillData(data.readings);
@@ -40,7 +41,7 @@ function fillData(data)
     dataY = [], dataY2 = [];
     var tb =  getElement('#tbody1');
     tb.innerHTML = "";
-    for (var i = 0; i < data.length; i++) {
+    for (var i = data.length-1; i >= 0; i--) {
         dataY.push(data[i].temperature); dataY2.push(data[i].humidity); dataX.push(getTime2(data[i].date));
     };
     for (var i = 0; i < data.length; i++) {
@@ -71,7 +72,8 @@ function logMovement(data) {
             loadModal(0);
         }
     }
-    movement = data;
+	if (data.readings.length > 0)
+		movement = data;
     var readings = data.readings;
     for (var i = 0; i < readings.length; i++) {
         tb.innerHTML += "<tr><td>" + getTime2(readings[i].date) + "</td><td>" + readings[i].picture_path  + "</td><td><input type='button' class='btn btn-dark' value='Open Picture' onclick='loadModal("+ i +")'></td><td>" + data.id +"</td>";
