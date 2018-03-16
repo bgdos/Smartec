@@ -18,25 +18,30 @@ function start()
     getElement('date').innerHTML = date.month + '/' + date.day + '/' + date.year;
     getElement("user-name").innerHTML = sessionStorage.username;
 }
-/** **/
+/** create chart **/
 function makeGraphics(data)
 {
     var dataLenght = 10;
+	dataX = [];
     var max= 40;
-    fillData(data.readings);
-    temp_hum_id = data.id;
-    // (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)
-    var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
-    temperature.linear();
-    var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
-    humidity.linear();
+    if (data.readings.length > 0) {
+        fillData(data.readings);
+        temp_hum_id = data.id;
+        // (element, data, DataNames, useZero, colors, labelX, labelY, average, mainColor)
+        var temperature = new Chart("graph", dataY, dataX, false, "", "Time", "Temperature", "", 'rgba(191, 51, 51, 0.76)')// ,max, labelY, labelX, dataLenght, 'rgba(47, 116, 152, 0.69)');
+        temperature.linear();
+        var humidity = new Chart("graph2", dataY2, dataX, false, "", "Time", "Humidity", "", "rgba(47, 116, 152, 0.69)")// max, "Humidity", labelX, dataLenght, 'rgba(191, 51, 51, 0.76)');
+        humidity.linear();
+    }
+    else getSensorMovementReadings();
+    
 }
 function fillData(data)
 {
     dataY = [], dataY2 = [];
     var tb =  getElement('#tbody1');
     tb.innerHTML = "";
-    for (var i = 0; i < data.length; i++) {
+    for (var i = data.length-1; i >= 0; i--) {
         dataY.push(data[i].temperature); dataY2.push(data[i].humidity); dataX.push(getTime2(data[i].date));
     };
     for (var i = 0; i < data.length; i++) {
@@ -67,7 +72,8 @@ function logMovement(data) {
             loadModal(0);
         }
     }
-    movement = data;
+	if (data.readings.length > 0)
+		movement = data;
     var readings = data.readings;
     for (var i = 0; i < readings.length; i++) {
         tb.innerHTML += "<tr><td>" + getTime2(readings[i].date) + "</td><td>" + readings[i].picture_path  + "</td><td><input type='button' class='btn btn-dark' value='Open Picture' onclick='loadModal("+ i +")'></td><td>" + data.id +"</td>";
