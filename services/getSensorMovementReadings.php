@@ -2,8 +2,8 @@
 	session_start();
 	header('Access-Control-Allow-Origin: *');
 	require_once('../classes/sensor.php');
-  require_once('../classes/movement.php');
-  require_once('../connection/catalogs.php');
+    require_once('../classes/movement.php');
+    require_once('../connection/catalogs.php');
 
 
   if (isset($_REQUEST['sensor']))
